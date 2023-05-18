@@ -44,7 +44,7 @@ void read_data()
 
 }
 
-write_data()
+ void write_data()
 {
     FILE* ch;
      ch = fopen("sign_up.txt","w");
