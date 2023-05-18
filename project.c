@@ -134,7 +134,7 @@ void signup()
 
     char any_key;
 
-   read_data();
+  // read_data();
 
    gotoxy(50,2);
 
@@ -184,9 +184,11 @@ void signup()
    printf("Note : please sign in using your user name and password\n");
 
      gotoxy(18,16);
-   printf("Press any key to continue : ");
+   printf("Press 'ENTER' to continue : ");
 
-   scanf("%s",&any_key);
+  // scanf("%s",&any_key);
+
+   getch();
 
    system("CLS");
 
