@@ -186,7 +186,7 @@ void signup()
      gotoxy(18,16);
    printf("Press any key to continue : ");
 
-   scanf("%s",&any_key);
+   getch();
 
    system("CLS");
 
