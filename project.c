@@ -65,30 +65,6 @@ void read_data()
 
 }
 
-  ///login sign up page
-
- void first_page()
- {
-      int n;
-    gotoxy(50,2);
-    printf("----------Welcome to HALKHATA----------");
-    gotoxy(6,4);
-    printf("=>Press 1 to login\n");
-    gotoxy(6,5);
-    printf("=>Press 2 to sign up\n\n");
-    gotoxy(6,7);
-    printf("Enter : ");
-    scanf("%d",&n);
-
-    system("CLS");
-
-    if(n==2)
-        signup();
-
-    else if(n==1)
-        login();
- }
-
   ///login function
 
 void login()
@@ -139,7 +115,7 @@ void login()
 
     getch();
     system("CLS");
-    first_page();
+    login();
 
     }
 
@@ -218,11 +194,11 @@ void signup()
 
 }
 
-int main()
+ void First_page()
 {
-    int n;
+     int n;
     gotoxy(50,2);
-    printf("----------Main menu----------");
+    printf("----------Welcome to HALKHATA----------");
     gotoxy(30,8);
     printf("1.Press 1 to login\n");
     gotoxy(30,9);
@@ -238,5 +214,11 @@ int main()
 
     else if(n==1)
         login();
+
+}
+
+int main()
+{
+    First_page();
 
 }
