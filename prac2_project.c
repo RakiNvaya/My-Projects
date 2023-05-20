@@ -46,6 +46,8 @@ void remove_tran();
 
 int t_num;   ///how many transaction done
 
+int number; /// for remove_tran function
+
 
 void read_tran()  ///to read  transactions
 {
@@ -88,6 +90,50 @@ void write_tran() /// to write transaction
 
 }
 
+void remove_tran()
+{
+    read_tran();
+    int k=t_num;
+
+     for(int i=0;i<t_num;i++)
+    {
+
+    gotoxy(25,5+i);
+    printf("%d . ",i+1);
+    gotoxy(30,5+i);
+    printf("%s  ",t_user[i].name);
+    gotoxy(50,5+i);
+    printf("%d  ",t_user[i].amount);
+    gotoxy(65,5+i);
+    printf("%s",t_user[i].date);
+
+    }
+
+   gotoxy(40,k+10);
+    printf("Enter ther transaction number you want to remove : ");
+    scanf("%d",&number); /// number declared globally
+
+    t_num--;
+
+    for(int i=number;i<t_num;i++)
+    {
+        t_user[i-1]=t_user[i];
+    }
+
+    write_tran();
+
+    gotoxy(40,k+12);
+    printf("Press any key to get back");
+
+    getch();
+    system("CLS");
+
+    main_page();
+
+
+
+}
+
 void show_tran()    /// to print and show trasantions
 {
     read_tran();
@@ -108,9 +154,6 @@ void show_tran()    /// to print and show trasantions
     k = i + 15;
 
     }
-
-    gotoxy(40,k+2);
-    printf("Transaction successfull");
 
     gotoxy(40,k+4);
     printf("Press any key to get back");
@@ -173,6 +216,8 @@ void main_page()  /// account main page
     printf("2. Remove money");
     gotoxy(18,11);
     printf("3. View Transaction History");
+        gotoxy(18,11);
+   // printf("4.Delete Transaction ");
    // printf("4. Exit\n");
 
     gotoxy(18,13);
@@ -184,8 +229,12 @@ void main_page()  /// account main page
      if(choice==1)
         add_money();
 
+     else if(choice==2)
+        remove_tran();
+
      else if(choice==3)
         show_tran();
+
 
 }
 
@@ -208,7 +257,10 @@ void add_money()
 
     write_tran();
 
-    gotoxy(40,15);
+     gotoxy(40,15);
+    printf("Transaction successfull");
+
+    gotoxy(40,17);
     printf("Press any key to get back");
 
     getch();
