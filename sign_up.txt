@@ -1,4 +1,1 @@
-ami
-rakin
-rakin
-12345
+0
