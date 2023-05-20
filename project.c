@@ -260,19 +260,22 @@ void read_data()
 void main_page()  /// account main page
 {
     int choice;
+    read_tran();
     gotoxy(18,5);
-    printf("What do you want");
+    printf("|| Balance : %d",balance);
     gotoxy(18,7);
-    printf("1. Add money");
+    printf("What do you want");
     gotoxy(18,9);
-    printf("2. Remove money");
+    printf("1. Add money");
     gotoxy(18,11);
-    printf("3. View Transaction History");
+    printf("2. Remove money");
     gotoxy(18,13);
+    printf("3. View Transaction History");
+    gotoxy(18,15);
     printf("4.Delete Transaction ");
    // printf("4. Exit\n");
 
-    gotoxy(18,15);
+    gotoxy(50,17);
     printf("Enter your choice: ");
     scanf("%d",&choice);
 
