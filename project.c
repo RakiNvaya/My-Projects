@@ -12,6 +12,15 @@ void gotoxy(int x, int y)
     SetConsoleCursorPosition(  GetStdHandle(STD_OUTPUT_HANDLE) , c);
 }
 
+struct transaction_info
+{
+    char name[100];
+    int amount;
+    char date[10];
+};
+
+struct transaction_info t_user[100];
+
 struct st
 {
     char first_name[20];
@@ -23,8 +32,191 @@ struct st
 
 struct st user[10];
 
-/// number of  id  curently saved
-int id_num;
+
+int id_num;  /// number of  id  curently saved
+int balance;  /// total balance;
+
+void login();
+void signup();
+void main_page();
+void add_money();
+void read_tran();
+void write_tran();
+void show_tran();
+void remove_tran();
+void remove_money();
+
+int t_num;   ///how many transaction done
+
+int number; /// for remove_tran function
+
+
+void read_tran()  ///to read  transactions
+{
+    FILE* ch;
+    ch=fopen("transaction.txt","r");
+   // if(ch==0)
+       // printf("file doesnot exixit");
+    fscanf(ch,"%d",&balance);
+    fscanf(ch,"%d",&t_num);
+    for(int i=0;i<t_num;i++)
+    {
+        fscanf(ch,"%s",&t_user[i].name);
+        fscanf(ch,"%d",&t_user[i].amount);
+        fscanf(ch,"%s",&t_user[i].date);
+    }
+
+    fclose(ch);
+}
+
+void write_tran() /// to write transaction
+{
+    FILE* ch;
+    ch=fopen("transaction.txt","w");
+    if(ch==0)
+        printf("file doesnot exixit");
+
+   // t_num++;
+
+    fprintf(ch,"%d\n",balance);
+     fprintf(ch,"%d\n",t_num);
+
+    for(int i=0;i<t_num;i++)
+    {
+        fprintf(ch,"%s\n",t_user[i].name);
+        fprintf(ch,"%d\n",t_user[i].amount);
+        fprintf(ch,"%s\n",t_user[i].date);
+    }
+
+    fclose(ch);
+
+
+}
+
+void remove_money()
+{
+    read_tran();
+
+         gotoxy(18,8);
+   printf("Enter name : ");
+   scanf("%s",&t_user[t_num].name);
+
+    gotoxy(18,10);
+   printf("Enter amount : -");
+   scanf("%d",&t_user[t_num].amount);
+
+    gotoxy(18,12);
+   printf("Enter date (dd/mm/yy) format: ");
+    scanf("%s",&t_user[t_num].date);
+
+    ///to check if enough balance is available to remove
+
+    if(balance>=t_user[t_num].amount)
+    {
+
+    balance -= t_user[t_num].amount;
+
+    write_tran();
+
+       gotoxy(40,15);
+    printf("**Transaction successfull**");
+
+    }
+    else
+    {
+             gotoxy(40,15);
+        printf("**Insufficient balance**");
+    }
+
+
+    gotoxy(40,17);
+    printf("=>Press any key to get back<=");
+
+    getch();
+    system("CLS");
+
+
+    main_page();
+}
+
+
+void remove_tran()
+{
+    read_tran();
+
+    int k=t_num;
+
+     for(int i=0;i<t_num;i++)
+    {
+
+    gotoxy(25,5+i);
+    printf("%d . ",i+1);
+    gotoxy(30,5+i);
+    printf("%s  ",t_user[i].name);
+    gotoxy(50,5+i);
+    printf("%d  ",t_user[i].amount);
+    gotoxy(65,5+i);
+    printf("%s",t_user[i].date);
+
+    }
+
+
+   gotoxy(40,k+10);
+    printf("Enter ther transaction number you want to remove : ");
+    scanf("%d",&number); /// number declared globally
+
+    t_num--;
+
+    for(int i=number;i<t_num;i++)
+    {
+        t_user[i-1]=t_user[i];
+    }
+
+    write_tran();
+
+    gotoxy(40,k+12);
+    printf("Press any key to get back");
+
+    getch();
+    system("CLS");
+
+    main_page();
+
+
+
+}
+
+void show_tran()    /// to print and show trasantions
+{
+    read_tran();
+
+    int k;
+
+    for(int i=0;i<t_num;i++)
+    {
+    gotoxy(25,i+1);
+    printf("%d . ",i+1);
+    gotoxy(30,i+1);
+    printf("%s  ",t_user[i].name);
+    gotoxy(50,i+1);
+    printf("%d  ",t_user[i].amount);
+    gotoxy(65,i+1);
+    printf("%s",t_user[i].date);
+
+    k = i + 15;
+
+    }
+
+    gotoxy(40,k+4);
+    printf("Press any key to get back");
+
+    getch();
+    system("CLS");
+
+    main_page();
+
+}
+
 
 void read_data()
 {
@@ -65,9 +257,79 @@ void read_data()
 
 }
 
-  ///login function
+void main_page()  /// account main page
+{
+    int choice;
+    gotoxy(18,5);
+    printf("What do you want");
+    gotoxy(18,7);
+    printf("1. Add money");
+    gotoxy(18,9);
+    printf("2. Remove money");
+    gotoxy(18,11);
+    printf("3. View Transaction History");
+    gotoxy(18,13);
+    printf("4.Delete Transaction ");
+   // printf("4. Exit\n");
 
-void login()
+    gotoxy(18,15);
+    printf("Enter your choice: ");
+    scanf("%d",&choice);
+
+    system("CLS");
+
+     if(choice==1)
+        add_money();
+
+     else if(choice==2)
+        remove_money();
+
+     else if(choice==3)
+        show_tran();
+
+     else if(choice==4)
+        remove_tran();
+
+
+}
+
+void add_money()
+{
+
+    read_tran();
+
+     gotoxy(18,8);
+   printf("Enter name : ");
+   scanf("%s",&t_user[t_num].name);
+
+    gotoxy(18,10);
+   printf("Enter amount : +");
+   scanf("%d",&t_user[t_num].amount);
+
+    gotoxy(18,12);
+   printf("Enter date (dd/mm/yy) format: ");
+    scanf("%s",&t_user[t_num].date);
+
+    balance += t_user[t_num].amount;
+
+    t_num++;
+
+    write_tran();
+
+     gotoxy(40,15);
+    printf("***Transaction successfull***");
+
+    gotoxy(40,17);
+    printf("=>Press any key to get back<=");
+
+    getch();
+    system("CLS");
+
+    main_page();
+}
+
+void login()   ///login function
+
 {
    gotoxy(50,2);
 
@@ -103,7 +365,17 @@ void login()
   if(a == 0 && b == 0){
 
     gotoxy(53,12);
-    printf("***Succesful login***");}
+    printf("***Succesful login***");
+     gotoxy(51,14);
+    printf("Press any key to continue");
+
+    getch();
+    system("CLS");
+
+    main_page();
+
+    }
+
   else{
     gotoxy(45,10);
     printf("***Incorrect user name or password***");
@@ -122,8 +394,8 @@ void login()
 
     getch();
 }
-     ///signup function
-void signup()
+
+void signup()   ///sign up function
 {
     char first_name[20];
     char last_name[20];
