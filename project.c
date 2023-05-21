@@ -183,7 +183,6 @@ void remove_tran()
     main_page();
 
 
-
 }
 
 void show_tran()    /// to print and show trasantions
