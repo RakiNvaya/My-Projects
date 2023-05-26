@@ -109,8 +109,6 @@ void remove_money()
    printf("Enter date (dd/mm/yy) format: ");
     scanf("%s",&t_user[t_num].date);
 
-    t_num++;
-
     ///to check if enough balance is available to remove
 
     if(balance>=t_user[t_num].amount)
