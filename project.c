@@ -116,6 +116,8 @@ void remove_money()
 
     balance -= t_user[t_num].amount;
 
+    t_num++;
+
     write_tran();
 
        gotoxy(40,15);
