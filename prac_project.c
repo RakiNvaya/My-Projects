@@ -44,6 +44,7 @@ struct st user[10];
 
 int id_num;  /// number of  id  curently saved
 int balance;  /// total balance;
+int num;     ///tran ending point for each id
 
 char name[20];
 char password[20];
@@ -67,14 +68,13 @@ int number; /// for remove_tran function
 void read_tran()  ///to read  transactions
 {
     FILE* ch;
-   // ch=fopen("transaction.txt","r");
-   // scanf(ch,"%d",&id_num);
-  //  fclose(ch);
 
     ch=fopen("transaction.txt","r");
    // if(ch==0)
        // printf("file doesnot exixit");
     fscanf(ch,"%d",&id_num);
+
+    num=0;
 
     int i,k,j=0;
 
@@ -85,14 +85,17 @@ void read_tran()  ///to read  transactions
     fscanf(ch,"%s",&id[i].userID);
     fscanf(ch,"%d",&id[i].id_balance);
     fscanf(ch,"%d",&id[i].tran_num);
-    for( j=k;j<id[i].tran_num;j++)
+
+    num += id[i].tran_num ; ///tran ending point for each id
+
+    for( j=k;j<num;j++)
     {
         fscanf(ch,"%s",&t_user[j].name);
         fscanf(ch,"%d",&t_user[j].amount);
         fscanf(ch,"%s",&t_user[j].date);
     }
 
-    k=j;
+  //  k=j;
 
     }
 
@@ -106,8 +109,9 @@ void write_tran() /// to write transaction
     if(ch==0)
         printf("file doesnot exixit");
 
-   // t_num++;
- fscanf(ch,"%d",&id_num);
+         num=0;
+
+    fprintf(ch,"%d\n",id_num);
 
     int i,k,j=0;
 
@@ -115,17 +119,20 @@ void write_tran() /// to write transaction
     {
         int k=j;
 
-    fprintf(ch,"%s",&id[i].userID);
-    fprintf(ch,"%d",&id[i].id_balance);
-    fprintf(ch,"%d",&id[i].tran_num);
-    for( j=k;j<id[i].tran_num;j++)
+    fprintf(ch,"%s\n",id[i].userID);
+    fprintf(ch,"%d\n",id[i].id_balance);
+    fprintf(ch,"%d\n",id[i].tran_num);
+
+    num += id[i].tran_num;  ///tran ending point for each id
+
+    for( j=k;j<num;j++)
     {
-        fprintf(ch,"%s",&t_user[j].name);
-        fprintf(ch,"%d",&t_user[j].amount);
-        fprintf(ch,"%s",&t_user[j].date);
+        fprintf(ch,"%s\n",t_user[j].name);
+        fprintf(ch,"%d\n",t_user[j].amount);
+        fprintf(ch,"%s\n",t_user[j].date);
     }
 
-    k=j;
+  //  k=j;
 
     }
     fclose(ch);
@@ -231,13 +238,7 @@ void show_tran()    /// to print and show trasantions
 {
     read_tran();
 
-    for(int i=0;i<id_num;i++)
-    {
-        if(strcmp(name,id[i].userID)==0)
-        {
-            ///////////
-        }
-    }
+    write_tran();
 
     int k;
 
