@@ -42,9 +42,11 @@ struct transaction id[10]; /// for multiple transaction
 struct st user[10];
 
 
-int id_num;  /// number of  id  curently saved
-int balance;  /// total balance;
-int num;     ///tran ending point for each id
+int id_num;   /// number of  id  curently saved
+int balance;   /// total balance;
+int num;        ///tran ending point for each id
+int id_pos;   /// id position
+int tran_add;
 
 char name[20];
 char password[20];
@@ -59,6 +61,7 @@ void write_tran();
 void show_tran();
 void remove_tran();
 void remove_money();
+void search_id();
 
 int t_num;   ///how many transaction done
 
@@ -76,7 +79,7 @@ void read_tran()  ///to read  transactions
 
     num=0;
 
-    int i,k,j=0;
+    int i,k=0,j=0;
 
     for( i=0;i<id_num;i++)
     {
@@ -85,6 +88,9 @@ void read_tran()  ///to read  transactions
     fscanf(ch,"%s",&id[i].userID);
     fscanf(ch,"%d",&id[i].id_balance);
     fscanf(ch,"%d",&id[i].tran_num);
+
+      if(strcmp(name,id[j].userID)==0) /// id balance
+        balance = id[i].id_balance;
 
     num += id[i].tran_num ; ///tran ending point for each id
 
@@ -143,7 +149,7 @@ void write_tran() /// to write transaction
 void remove_money()
 {
     read_tran();
-
+   // id_search();
          gotoxy(18,8);
    printf("Enter name : ");
    scanf("%s",&t_user[t_num].name);
@@ -236,29 +242,48 @@ void remove_tran()
 
 void show_tran()    /// to print and show trasantions
 {
+
     read_tran();
 
-    write_tran();
+    num = 0;
 
-    int k;
+   // write_tran();
 
-    for(int i=0;i<t_num;i++)
+    int k=0;
+
+    for(int j=0;j<id_num;j++)
+        {
+             num += id[j].tran_num;
+
+
+       if(strcmp(name,id[j].userID)==0){
+
+            //printf("done");
+
+              int start = num - id[j].tran_num;
+
+    for(int i=start;i<num;i++)
     {
+
     gotoxy(25,i+1);
     printf("%d . ",i+1);
     gotoxy(30,i+1);
-    printf("%s  ",t_user[i].name);
+    printf("%s",t_user[i].name);
     gotoxy(50,i+1);
     printf("%d  ",t_user[i].amount);
     gotoxy(65,i+1);
     printf("%s",t_user[i].date);
 
-    k = i + 15;
+     k = i + 15;
 
-    }
 
-    gotoxy(40,k+4);
-    printf("Press any key to get back");
+         }
+       }
+
+     }
+
+    gotoxy(40,k);
+   printf("Press any key to get back");
 
     getch();
     system("CLS");
@@ -291,7 +316,7 @@ void read_data()
     FILE* ch;
      ch = fopen("sign_up.txt","w");
 
-     id_num++;
+   //  id_num++;
      fprintf(ch,"%d\n",id_num);
      for(int i=0;i<id_num;i++)
      {
@@ -307,12 +332,40 @@ void read_data()
 
 }
 
+void search_id()
+{
+
+    read_tran();
+
+      FILE* ch;
+
+    ch=fopen("transaction.txt","r");
+
+     int i,k=0,j=0;
+
+    for(i=0;i<id_num;i++)
+    {
+        tran_add += id[i].tran_num;
+
+
+        if(strcmp(name,id[i].userID)==0)
+
+            id_pos = i;
+
+
+    }
+
+    fclose(ch);
+
+}
 void main_page()  /// account main page
 {
     int choice;
+
     read_tran();
+
     gotoxy(18,5);
-    printf("|| Balance : %d",balance);
+    printf("|| Balance : %d",balance); /// from read_tran
     gotoxy(18,7);
     printf("What do you want");
     gotoxy(18,9);
@@ -350,22 +403,23 @@ void add_money()
 {
 
     read_tran();
+    search_id();
 
      gotoxy(18,8);
    printf("Enter name : ");
-   scanf("%s",&t_user[t_num].name);
+   scanf("%s",&t_user[tran_add].name);
 
     gotoxy(18,10);
    printf("Enter amount : +");
-   scanf("%d",&t_user[t_num].amount);
+   scanf("%d",&t_user[tran_add].amount);
 
     gotoxy(18,12);
    printf("Enter date (dd/mm/yy) format: ");
-    scanf("%s",&t_user[t_num].date);
+    scanf("%s",&t_user[tran_add].date);
 
-    balance += t_user[t_num].amount;
+    id[id_pos].id_balance += t_user[tran_add].amount;
 
-    t_num++;
+    id[id_pos].tran_num++;
 
     write_tran();
 
@@ -417,6 +471,8 @@ void login()   ///login function
 
   if(a == 0 && b == 0){
 
+         strcpy(name,login_user_name);
+
     gotoxy(53,12);
     printf("***Succesful login***");
      gotoxy(51,14);
@@ -460,6 +516,7 @@ void signup()   ///sign up function
     char any_key;
 
    read_data();
+   read_tran();
 
    gotoxy(50,2);
 
@@ -499,10 +556,16 @@ void signup()   ///sign up function
        }
    }
 
-   strcpy(name,user[id_num].user_name);
-   strcpy(password,user[id_num].password);
+    strcpy(id[id_num].userID,user[id_num].user_name);
+    id[id_num].id_balance = 0;
+    id[id_num].tran_num = 0;
+
+    id_num++;
+
+  // strcpy(password,user[id_num].password);
 
   write_data();
+  write_tran();
 
    gotoxy(18,12);
    printf("***login succesfull***");
