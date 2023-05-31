@@ -47,6 +47,7 @@ int balance;   /// total balance;
 int num;        ///tran ending point for each id
 int id_pos;   /// id position
 int tran_add;
+int id_point;
 
 char name[20];
 char password[20];
@@ -83,18 +84,19 @@ void read_tran()  ///to read  transactions
 
     for( i=0;i<id_num;i++)
     {
+        int start=0;
 
     fscanf(ch,"%s",&id[i].userID);
     fscanf(ch,"%d",&id[i].id_balance);
     fscanf(ch,"%d",&id[i].tran_num);
 
-      if(strcmp(name,id[i].userID)==0) /// id balance
+      if(strcmp(name,id[i].userID)==0) /// id balance check
         balance = id[i].id_balance;
 
 
     num += id[i].tran_num ; ///tran ending point for each id
 
-      int start = num - id[i].tran_num;
+      start = num - id[i].tran_num;
 
     for( j=start;j<num;j++)
     {
@@ -124,7 +126,7 @@ void write_tran() /// to write transaction
 
     for(i=0;i<id_num;i++)
     {
-      //k=j;
+     int start = 0;
 
     fprintf(ch,"%s\n",id[i].userID);
     fprintf(ch,"%d\n",id[i].id_balance);
@@ -132,7 +134,7 @@ void write_tran() /// to write transaction
 
     num += id[i].tran_num;  ///tran ending point for each id
 
-    int start = num - id[i].tran_num;
+    start = num - id[i].tran_num;
 
     for( j=start;j<num;j++ )
     {
@@ -153,22 +155,30 @@ void add_money()
     read_tran();
     search_id();
 
+   //  id[id_pos].tran_num++;
+
+ for(int i=tran_add;i>id_point;i--)
+ {
+     t_user[i]=t_user[i-1];
+ }
+
+
     gotoxy(50,5);
     printf("-----Add money------");
 
      gotoxy(18,8);
    printf("Enter name : ");
-   scanf("%s",&t_user[tran_add].name);
+   scanf("%s",&t_user[id_point].name);
 
     gotoxy(18,10);
    printf("Enter amount : +");
-   scanf("%d",&t_user[tran_add].amount);
+   scanf("%d",&t_user[id_point].amount);
 
     gotoxy(18,12);
    printf("Enter date (dd/mm/yy) format: ");
-    scanf("%s",&t_user[tran_add].date);
+    scanf("%s",&t_user[id_point].date);
 
-    id[id_pos].id_balance += t_user[tran_add].amount;
+    id[id_pos].id_balance += t_user[id_point].amount;
 
     id[id_pos].tran_num++;
 
@@ -191,27 +201,33 @@ void remove_money()
     read_tran();
     search_id();
 
+    for(int i=tran_add;i>id_point;i--)
+ {
+     t_user[i]=t_user[i-1];
+ }
+
+
     gotoxy(50,5);
     printf("-----Remove money------");
 
          gotoxy(18,8);
    printf("Enter name : ");
-   scanf("%s",&t_user[tran_add].name);
+   scanf("%s",&t_user[id_point].name);
 
     gotoxy(18,10);
    printf("Enter amount : -");
-   scanf("%d",&t_user[tran_add].amount);
+   scanf("%d",&t_user[id_point].amount);
 
     gotoxy(18,12);
    printf("Enter date (dd/mm/yy) format: ");
-    scanf("%s",&t_user[tran_add].date);
+    scanf("%s",&t_user[id_point].date);
 
     ///to check if enough balance is available to remove
 
-    if( id[id_pos].id_balance >= t_user[tran_add].amount )
+    if( id[id_pos].id_balance >= t_user[id_point].amount )
     {
 
-    id[id_pos].id_balance -= t_user[tran_add].amount;
+    id[id_pos].id_balance -= t_user[id_point].amount;
 
     id[id_pos].tran_num++;
 
@@ -334,20 +350,20 @@ void show_tran()    /// to print and show trasantions
     for(int i=start;i<num;i++)
     {
 
-    gotoxy(25,i+1);
+    gotoxy(25,f+1);
     printf("%d . ",f);
-    gotoxy(30,i+1);
+    gotoxy(30,f+1);
     printf("%s",t_user[i].name);
-    gotoxy(50,i+1);
+    gotoxy(50,f+1);
     printf("%d  ",t_user[i].amount);
-    gotoxy(65,i+1);
+    gotoxy(65,f+1);
     printf("%s",t_user[i].date);
 
     f++;
 
-    k=i+10;
 
          }
+         int k = f+10;
        }
 
      }
@@ -421,9 +437,12 @@ void search_id()
 
 
         if(strcmp(name,id[i].userID)==0)
-
-            id_pos = i;
-
+            {
+                
+           id_pos = i;
+           id_point = tran_add;
+        
+           }
 
     }
 
