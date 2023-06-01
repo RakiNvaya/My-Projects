@@ -153,9 +153,7 @@ void add_money()
 {
 
     read_tran();
-    search_id();
-
-   //  id[id_pos].tran_num++;
+       search_id();
 
  for(int i=tran_add;i>id_point;i--)
  {
@@ -177,6 +175,9 @@ void add_money()
     gotoxy(18,12);
    printf("Enter date (dd/mm/yy) format: ");
     scanf("%s",&t_user[id_point].date);
+
+    //gotoxy(18,14);
+   // printf("  => %d ",id_point);
 
     id[id_pos].id_balance += t_user[id_point].amount;
 
@@ -422,14 +423,13 @@ void read_data()
 
 void search_id()
 {
+   read_tran();
 
-    read_tran();
+     int i;
 
-      FILE* ch;
+     id_point = 0;
 
-    ch=fopen("transaction.txt","r");
-
-     int i,k=0,j=0;
+     tran_add = 0;
 
     for(i=0;i<id_num;i++)
     {
@@ -438,15 +438,14 @@ void search_id()
 
         if(strcmp(name,id[i].userID)==0)
             {
-                
+
            id_pos = i;
            id_point = tran_add;
-        
+
            }
 
     }
 
-    fclose(ch);
 
 }
 void main_page()  /// account main page
@@ -622,10 +621,10 @@ void signup()   ///sign up function
   write_tran();
 
    gotoxy(18,12);
-   printf("***login succesfull***");
+   printf("***sign up succesfull***");
 
     gotoxy(18,14);
-   printf("Note : please sign in using your user name and password\n");
+   printf("Note : please login using your user name and password\n");
 
      gotoxy(18,16);
    printf("Press any key to continue : ");
