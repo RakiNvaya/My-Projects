@@ -418,8 +418,17 @@ void read_note()
       fscanf(ch,"%s",note_user[i].note_name);
       fscanf(ch,"%d",&note_user[i].num_note);
 
+
       num += note_user[i].num_note ;
       start = num - note_user[i].num_note ;
+
+      if(strcmp(name,note_user[i].note_name)==0)
+        {
+            n_last=num;
+            n_pos = i;
+            //start = num - note_user[i].num_note ;
+
+        }
 
 
         for(int j=start;j<num;j++)
@@ -445,12 +454,17 @@ void write_note()
 
     fprintf(ch,"%d\n",id_num);
 
+   int  start = 0,num = 0;
+
     for(int i=0;i<id_num;i++)
     {
       fprintf(ch,"%s\n",note_user[i].note_name);
       fprintf(ch,"%d\n",note_user[i].num_note);
 
-        for(int j=0;j<note_user[i].num_note;j++)
+      num += note_user[i].num_note;
+      start = num -  note_user[i].num_note;
+
+        for(int j=start;j<num;j++)
         {
             fprintf(ch,"%s\n",my_note[j]);
         }
@@ -462,10 +476,7 @@ void write_note()
 void show_note()
 {
 
-
     read_note();
-
-   // printf("done");
 
       num=0;
 
@@ -494,12 +505,10 @@ void show_note()
 
         }
 
-      //  printf("%d   %d",n_last,num);
-
     }
 
 
-    gotoxy(40,k+5);
+    gotoxy(45,k+5);
     printf("=> Press any key to get back <=");
 
     getch();
@@ -542,18 +551,17 @@ void add_notes()
 {
     read_note();
 
-    gotoxy(5,5);
-    printf(" || start from below || ");
+    gotoxy(45,5);
+    printf("|| start from below || ");
 
     gotoxy(5,7);
     printf("=>");
 
-    scanf(" %[^\n]",my_note[n_last]);
+    scanf(" %[^\n]",my_note[n_last]);  /// n last from read note
 
 
     note_user[n_pos].num_note++;
 
-    num++;
 
     for(int i=num;i>n_last;i--)
         strcpy(my_note[i],my_note[i-1]);
