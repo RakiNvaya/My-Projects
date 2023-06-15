@@ -19,8 +19,8 @@ struct transaction_info
     int amount;
     char date[10];
 };
-
 struct transaction_info t_user[100];
+
 
 struct st
 {
@@ -30,6 +30,8 @@ struct st
     char password[20];
 
 };
+struct st user[15];
+
 
 struct transaction
 {
@@ -37,20 +39,26 @@ struct transaction
     int id_balance; /// balance for each id
     int tran_num;  ///transaction number for each id
 };
-
 struct transaction id[15]; /// for multiple transaction
-struct st user[15];
+
+struct note
+{
+    char note_name[30];
+    int num_note;
+};
+struct note note_user[15];
 
 
-int id_num;   /// number of  id  curently saved
+int id_num = 0;   /// number of  id  curently saved
 int balance;   /// total balance;
-int num;        ///tran ending point for each id
+int n_num,num;        ///tran ending point for each id
 int id_pos;   /// id position
 int tran_add;
 int id_point;
-
+char my_note[200][200];
 char name[20];
 char password[20];
+int n_last,n_pos,n_start;
 
 
 void login();
@@ -63,6 +71,13 @@ void show_tran();
 void remove_tran();
 void remove_money();
 void search_id();
+void read_note();
+void write_note();
+void show_note();
+void note_page();
+void add_notes();
+void remove_note();
+
 
 int t_num;   ///how many transaction done
 
@@ -94,7 +109,7 @@ void read_tran()  ///to read  transactions
         balance = id[i].id_balance;
 
 
-    num += id[i].tran_num ; ///tran ending point for each id
+     num += id[i].tran_num ; ///tran ending point for each id
 
       start = num - id[i].tran_num;
 
@@ -332,9 +347,9 @@ void show_tran()    /// to print and show trasantions
 
     num = 0;
 
-   // write_tran();
 
-    int k=0;
+
+    int k=10;
 
     for(int j=0;j<id_num;j++)
         {
@@ -343,21 +358,23 @@ void show_tran()    /// to print and show trasantions
 
        if(strcmp(name,id[j].userID)==0){
 
-            //printf("done");
+
 
               int start = num - id[j].tran_num;
     int f =1 ;
+    gotoxy(50,3);
+    printf("|| Transaction Hisotry ||");
 
     for(int i=start;i<num;i++)
     {
 
-    gotoxy(25,f+1);
+    gotoxy(25,f+5);
     printf("%d . ",f);
-    gotoxy(30,f+1);
+    gotoxy(30,f+5);
     printf("%s",t_user[i].name);
-    gotoxy(50,f+1);
+    gotoxy(50,f+5);
     printf("%d  ",t_user[i].amount);
-    gotoxy(65,f+1);
+    gotoxy(65,f+5);
     printf("%s",t_user[i].date);
 
     f++;
@@ -369,8 +386,8 @@ void show_tran()    /// to print and show trasantions
 
      }
 
-    gotoxy(40,k);
-   printf("Press any key to get back");
+    gotoxy(50,k);
+   printf(">> Press any key to get back <<");
 
     getch();
     system("CLS");
@@ -378,6 +395,269 @@ void show_tran()    /// to print and show trasantions
     main_page();
 
 }
+
+
+
+
+
+
+
+
+void read_note()
+{
+    FILE *ch;
+    ch = fopen("notes.txt","r");
+
+    num = 0;
+
+    fscanf(ch,"%d",&id_num);
+
+
+    int start = 0;
+
+    for(int i=0;i<id_num;i++)
+    {
+
+      fscanf(ch,"%s",note_user[i].note_name);
+      fscanf(ch,"%d",&note_user[i].num_note);
+
+
+      num += note_user[i].num_note ;
+      start = num - note_user[i].num_note ;
+
+      if(strcmp(name,note_user[i].note_name)==0)
+        {
+            n_last=num;
+            n_pos = i;
+            n_start = start;
+            //start = num - note_user[i].num_note ;
+
+        }
+
+
+        for(int j=start;j<num;j++)
+        {
+
+          fscanf(ch," %[^\n]",my_note[j]);
+
+        }
+
+    }
+
+
+
+    fclose(ch);
+
+
+}
+
+void write_note()
+{
+    FILE *ch;
+    ch = fopen("notes.txt","w");
+
+    fprintf(ch,"%d\n",id_num);
+
+   int  start = 0,num = 0;
+
+    for(int i=0;i<id_num;i++)
+    {
+      fprintf(ch,"%s\n",note_user[i].note_name);
+      fprintf(ch,"%d\n",note_user[i].num_note);
+
+      num += note_user[i].num_note;
+      start = num -  note_user[i].num_note;
+
+        for(int j=start;j<num;j++)
+        {
+            fprintf(ch,"%s\n",my_note[j]);
+        }
+    }
+
+    fclose(ch);
+}
+
+void show_note()
+{
+
+    read_note();
+
+      num=0;
+
+    int start = 0,k=8;
+
+
+    for(int i=0;i<id_num;i++)
+    {
+        num += note_user[i].num_note;
+
+        if(strcmp(name,note_user[i].note_name)==0)
+        {
+            n_last=num;
+            n_pos = i;
+             start = num - note_user[i].num_note ;
+            //  printf("%d",note_user[i].num_note);
+
+       int s = 1;  /// for serial
+
+       gotoxy(54,4);
+
+       printf("|| My notes ||");
+
+            for(int j=start;j<num;j++)
+            {
+                gotoxy(10,k); k++;
+                printf("%d . %s\n",s,my_note[j]);
+                s++;
+            }
+
+        }
+
+    }
+
+
+    gotoxy(45,k+5);
+    printf("=> Press any key to get back <=");
+
+    getch();
+
+    system("CLS");
+
+
+
+    note_page();
+
+}
+
+void note_page()  /// note page
+{
+    gotoxy(15,5);
+    printf("1.Show notes");
+    gotoxy(15,7);
+    printf("2.Add note");
+    gotoxy(15,9);
+    printf("3.Remove note");
+    gotoxy(15,12);
+    printf("=> Enter 4 to get back");
+    gotoxy(15,15);
+    printf("ENTER YOUR CHOICE : ");
+
+    int n;
+    scanf("%d",&n);
+
+    system("CLS");
+
+    if(n==1)
+        show_note();
+    if(n==2)
+        add_notes();
+    if(n==3)
+         remove_note();
+    else if(n==4)
+        main_page();
+
+}
+
+void add_notes()
+{
+    read_note();
+
+    gotoxy(50,5);
+    printf("|| start from below || ");
+
+    gotoxy(5,7);
+    printf("=>");
+
+    scanf(" %[^\n]",my_note[n_last]);  /// n last from read note
+
+
+    note_user[n_pos].num_note++;
+
+
+    for(int i=num;i>n_last;i--)
+        strcpy(my_note[i],my_note[i-1]);
+
+
+
+    write_note();
+
+     gotoxy(45,13);
+
+    printf(">> Note added successfully <<");
+
+    gotoxy(45,16);
+    printf("=>Press any key to get back<=");
+
+    getch();
+    system("CLS");
+
+    note_page();
+
+
+}
+
+void remove_note()
+{
+    read_note();
+      num=0;
+
+    int start = 0,k=4,s,n;
+
+
+    for(int i=0;i<id_num;i++)
+    {
+        num += note_user[i].num_note;
+
+        if(strcmp(name,note_user[i].note_name)==0)
+        {
+            n_last=num;
+            n_pos = i;
+             start = num - note_user[i].num_note ;
+            //  printf("%d",note_user[i].num_note);
+
+        s = 1;  /// for serial
+
+            for(int j=start;j<num;j++)
+            {
+                gotoxy(10,k); k++;
+                printf("%d . %s\n",s,my_note[j]);
+                s++;
+            }
+
+        }
+
+    }
+
+    gotoxy(10,s+5);
+    printf("** Enter the serial of the note u want to remove **");
+    gotoxy(10,s+7);
+    printf("Enter :");
+    scanf("%d",&n);
+
+
+    note_user[n_pos].num_note--;
+
+
+    for(int i=n_start+n-1;i<num;i++)
+        strcpy(my_note[i],my_note[i+1]);
+
+
+        write_note();
+
+
+        gotoxy(50,s+10);
+        printf(">> Note removed successfully <<");
+        gotoxy(52,s+12);
+        printf("PRESS ANY KEY TO GET BACK");
+
+        getch();
+        system("CLS");
+
+        note_page();
+
+
+}
+
 
 
 
@@ -466,9 +746,11 @@ void main_page()  /// account main page
     printf("3. View Transaction History");
     gotoxy(18,15);
     printf("4.Delete Transaction ");
+     gotoxy(18,17);
+    printf("5. My Diary ");
    // printf("4. Exit\n");
 
-    gotoxy(50,17);
+    gotoxy(50,20);
     printf("Enter your choice: ");
     scanf("%d",&choice);
 
@@ -485,6 +767,8 @@ void main_page()  /// account main page
 
      else if(choice==4)
         remove_tran();
+     else if(choice==5)
+         note_page();    ///wprk from here
 
 
 }
@@ -499,10 +783,10 @@ void login()   ///login function
     gotoxy(18,7);
     printf("1.Enter user name : ");
     scanf("%s",&login_user_name);
-   gotoxy(18,8);
+
+    gotoxy(18,9);
     printf("2.Enter password  : ");
     scanf("%s",&login_password);
-
 
     read_data();
 
@@ -570,6 +854,7 @@ void signup()   ///sign up function
 
    read_data();
    read_tran();
+   read_note();
 
    gotoxy(50,2);
 
@@ -579,17 +864,19 @@ void signup()   ///sign up function
    printf("1.Enter first name : ");
    scanf("%s",&user[id_num].first_name);
 
-   gotoxy(18,7);
+    gotoxy(18,8);
     printf("2.Enter last name  : ");
     scanf("%s",&user[id_num].last_name);
 
-   gotoxy(18,8);
+     gotoxy(18,10);
     printf("3.Enter user name  : ");
-    scanf("%s",&user[id_num].user_name);
+    scanf("%s",user[id_num].user_name);
+  // scanf(" %[^\n]",user[id_num].user_name);
 
-   gotoxy(18,9);
+   gotoxy(18,12);
    printf("4.Enter password   : ");
-   scanf("%s",&user[id_num].password);
+   scanf("%s",user[id_num].password);
+
 
       int i;
      for(i=0;i<id_num;i++)  ///to check if the userID is taken
@@ -613,20 +900,24 @@ void signup()   ///sign up function
     id[id_num].id_balance = 0;
     id[id_num].tran_num = 0;
 
+    strcpy(note_user[id_num].note_name,user[id_num].user_name);
+    note_user[id_num].num_note = 0;
+
     id_num++;
 
   // strcpy(password,user[id_num].password);
 
   write_data();
   write_tran();
+  write_note();
 
-   gotoxy(18,12);
+   gotoxy(18,14);
    printf("***sign up succesfull***");
 
-    gotoxy(18,14);
+    gotoxy(18,16);
    printf("Note : please login using your user name and password\n");
 
-     gotoxy(18,16);
+     gotoxy(18,18);
    printf("Press any key to continue : ");
 
    getch();
@@ -644,7 +935,7 @@ void signup()   ///sign up function
     printf("----------Welcome to HALKHATA----------");
     gotoxy(30,8);
     printf("1.Press 1 to login\n");
-    gotoxy(30,9);
+    gotoxy(30,10);
     printf("2.Press 2 to sign up\n\n");
     gotoxy(50,15);
     printf("Enter : ");
