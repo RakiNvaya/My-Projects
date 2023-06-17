@@ -17,6 +17,7 @@ struct transaction_info
 {
     char name[100];
     int amount;
+    char sign;
     char date[10];
 };
 struct transaction_info t_user[100];
@@ -116,8 +117,9 @@ void read_tran()  ///to read  transactions
     for( j=start;j<num;j++)
     {
         fscanf(ch,"%s",&t_user[j].name);
+        fscanf(ch," %c",&t_user[j].sign);
         fscanf(ch,"%d",&t_user[j].amount);
-        fscanf(ch,"%s",&t_user[j].date);
+        fscanf(ch," %s",&t_user[j].date);
     }
 
     }
@@ -154,6 +156,7 @@ void write_tran() /// to write transaction
     for( j=start;j<num;j++ )
     {
         fprintf(ch,"%s\n",t_user[j].name);
+        fprintf(ch,"%c\n",t_user[j].sign);
         fprintf(ch,"%d\n",t_user[j].amount);
         fprintf(ch,"%s\n",t_user[j].date);
     }
@@ -169,6 +172,8 @@ void add_money()
 
     read_tran();
        search_id();
+
+    //  char ch = '+';
 
  for(int i=tran_add;i>id_point;i--)
  {
@@ -191,8 +196,8 @@ void add_money()
    printf("Enter date (dd/mm/yy) format: ");
     scanf("%s",&t_user[id_point].date);
 
-    //gotoxy(18,14);
-   // printf("  => %d ",id_point);
+    t_user[id_point].sign = '+';
+
 
     id[id_pos].id_balance += t_user[id_point].amount;
 
@@ -217,6 +222,8 @@ void remove_money()
     read_tran();
     search_id();
 
+    //char ch = '-';
+
     for(int i=tran_add;i>id_point;i--)
  {
      t_user[i]=t_user[i-1];
@@ -237,6 +244,8 @@ void remove_money()
     gotoxy(18,12);
    printf("Enter date (dd/mm/yy) format: ");
     scanf("%s",&t_user[id_point].date);
+
+    t_user[id_point].sign = '-';
 
     ///to check if enough balance is available to remove
 
@@ -372,9 +381,11 @@ void show_tran()    /// to print and show trasantions
     printf("%d . ",f);
     gotoxy(30,f+5);
     printf("%s",t_user[i].name);
+    gotoxy(49,f+5);
+    printf("%c",t_user[i].sign);
     gotoxy(50,f+5);
     printf("%d  ",t_user[i].amount);
-    gotoxy(65,f+5);
+    gotoxy(60,f+5);
     printf("%s",t_user[i].date);
 
     f++;
@@ -430,7 +441,6 @@ void read_note()
             n_last=num;
             n_pos = i;
             n_start = start;
-            //start = num - note_user[i].num_note ;
 
         }
 
@@ -657,6 +667,8 @@ void remove_note()
 
 
 }
+
+
 
 
 
