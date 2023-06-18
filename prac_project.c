@@ -1,6 +1,3 @@
-
-
-
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
@@ -43,51 +40,25 @@ void gotoxy(int x, int y)
 /// Loading animation.
 void loading()
 {
-       int time = 15;
+    int time = 10;
     char c1 = 177, c2 = 219;
-    gotoxy(98, 18);
-    printf("Loading ... Please wait.");
+    gotoxy(51, 14);
+    printf("Loafing ... Please wait.");
 
     // 1st character print.
-    int x1 = 99;
-    while (x1 <= 120)
+    int x1 = 53;
+    while (x1 <= 78)
     {
-        gotoxy(x1, 20);
+        gotoxy(x1, 16);
         printf("%c", c1);
         x1++;
     }
 
     // 2nd character print.
-    int x2 = 99;
-    while (x2 <= 120)
+    int x2 = 53;
+    while (x2 <= 78)
     {
-        gotoxy(x2, 20);
-        printf("%c", c2);
-        Sleep(time);
-        x2++;
-    }
-}
-void loading1()
-{
-       int time = 15;
-    char c1 = 177, c2 = 219;
-    gotoxy(98, 31);
-    printf("Loading ... Please wait.");
-
-    // 1st character print.
-    int x1 = 99;
-    while (x1 <= 120)
-    {
-        gotoxy(x1, 33);
-        printf("%c", c1);
-        x1++;
-    }
-
-    // 2nd character print.
-    int x2 = 99;
-    while (x2 <= 120)
-    {
-        gotoxy(x2, 33);
+        gotoxy(x2, 16);
         printf("%c", c2);
         Sleep(time);
         x2++;
@@ -239,57 +210,56 @@ void write_tran() /// to write transaction1
     fclose(ch);
 }
 
-void add_money() // 12
+void add_money() // 1
 {
 
-     read_tran();
+    read_tran();
     search_id();
 
     for (int i = tran_add; i > id_point; i--)
     {
         t_user[i] = t_user[i - 1];
     }
-     gotoxy(50, 7);
 
-
-     printf("..................................................................................");
-     gotoxy(50, 27);
+    gotoxy(17, 5);
 
     printf("..................................................................................");
-    for (int i = 7; i <= 27; i++)
+    gotoxy(17, 18);
+
+    printf("..................................................................................");
+    for (int i = 5; i <= 18; i++)
     {
-        gotoxy(50, i);
+        gotoxy(17, i);
         printf(".");
     }
-    for (int i = 7; i <= 27; i++)
+    for (int i = 5; i <= 18; i++)
     {
-        gotoxy(131, i);
+        gotoxy(98, i);
         printf(".");
     }
-    gotoxy(80, 9);
+    gotoxy(48, 7);
     printf("...............................");
-    gotoxy(85, 8);
+    gotoxy(52, 6);
     printf("-----Add money------");
-     gotoxy(72, 11);
-    printf("**Please press ESC and then Enter to go back**");
-    gotoxy(54, 13);
+
+    gotoxy(19, 9);
     printf("Enter name : ");
     scanf("%s", &t_user[id_point].name);
-    gotoxy(54, 14);
+    gotoxy(19, 10);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-    gotoxy(54, 15);
+    gotoxy(19, 11);
     printf("Enter amount : ");
     scanf("%d", &t_user[id_point].amount);
-    gotoxy(54, 16);
+    gotoxy(19, 12);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    gotoxy(54, 17);
+    gotoxy(19, 13);
     printf("Enter date (dd/mm/yy) format: ");
     scanf("%s", &t_user[id_point].date);
 
     t_user[id_point].sign = '+';
 
-    gotoxy(54, 18);
+    gotoxy(19, 14);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     // gotoxy(18,14);
     //  printf("  => %d ",id_point);
@@ -302,11 +272,10 @@ void add_money() // 12
 
     loading(); // For loading animation.
 
-    gotoxy(97, 23);
+    gotoxy(57, 15);
     printf("***Transaction successfull***");
 
-
-    gotoxy(97, 24);
+    gotoxy(57, 17);
     printf("=>Press any key to get back<=");
 
     getch();
@@ -315,7 +284,7 @@ void add_money() // 12
     main_page();
 }
 
-void remove_money() // 12
+void remove_money() // 1
 {
     read_tran();
     search_id();
@@ -325,47 +294,44 @@ void remove_money() // 12
         t_user[i] = t_user[i - 1];
     }
 
-    gotoxy(50, 7);
-
-
-     printf("..................................................................................");
-     gotoxy(50, 27);
+    gotoxy(17, 5);
 
     printf("..................................................................................");
-    for (int i = 7; i <= 27; i++)
-    {
-        gotoxy(50, i);
-        printf(".");
-    }
-    for (int i = 7; i <= 27; i++)
-    {
-        gotoxy(131, i);
-        printf(".");
-    }
-    gotoxy(80, 9);
-    printf("...............................");
+    gotoxy(17, 21);
 
-    gotoxy(85, 8);
+    printf("..................................................................................");
+    for (int i = 5; i <= 21; i++)
+    {
+        gotoxy(17, i);
+        printf(".");
+    }
+    for (int i = 5; i <= 21; i++)
+    {
+        gotoxy(98, i);
+        printf(".");
+    }
+
+    gotoxy(52, 6);
     printf("-----Remove money------");
-    gotoxy(72, 11);
-    printf("**Please press ESC and then Enter to go back**");
-    gotoxy(54,13);
+    gotoxy(48, 7);
+    printf("...............................");
+    gotoxy(19, 9);
     printf("Enter name : ");
     scanf("%s", &t_user[id_point].name);
-    gotoxy(54, 14);
+    gotoxy(19, 10);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    gotoxy(54, 15);
+    gotoxy(19, 11);
     printf("Enter amount : ");
     scanf("%d", &t_user[id_point].amount);
-    gotoxy(54, 16);
+    gotoxy(19, 12);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    gotoxy(54, 17);
+    gotoxy(19, 13);
     printf("Enter date (dd/mm/yy) format: ");
     scanf("%s", &t_user[id_point].date);
 
     t_user[id_point].sign = '-';
 
-    gotoxy(54, 18);
+    gotoxy(19, 14);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
     /// to check if enough balance is available to remove
@@ -381,18 +347,18 @@ void remove_money() // 12
 
         loading(); // For loading animation.
 
-        gotoxy(97, 23);
+        gotoxy(43, 17);
         printf("**Transaction successfull**");
     }
     else
     {
         loading(); // For loading animation.
 
-        gotoxy(97, 23);
+        gotoxy(43, 17);
         printf("**Insufficient balance**");
     }
 
-    gotoxy(97, 24);
+    gotoxy(43, 19);
     printf("=>Press any key to get back<=");
 
     getch();
@@ -420,62 +386,59 @@ void remove_tran() // 1
             // printf("done");
 
             start = num - id[j].tran_num;
-             gotoxy(54, 9);
+            gotoxy(24, 6);
             printf("SI.");
-            gotoxy(70, 9);
-            printf("Name:-");
-            gotoxy(99, 9);
-            printf("Amount:-");
-            gotoxy(121, 9);
-            printf("Date:-");
-       gotoxy(50, 6);
-       printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-       gotoxy(50, 8);
-       printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-       gotoxy(50, 10);
-       printf("..................................................................................");
-       gotoxy(50, 27);
-
-       printf("..................................................................................");
-       for (int i = 6; i <= 27; i++)
-      {
-        gotoxy(50, i);
-        printf(".");
-      }
-      for (int i = 6; i <= 27; i++)
-     {
-        gotoxy(131, i);
-        printf(".");
-      }
-            for (int i = 8; i <= 27; i++)
+            gotoxy(35, 6);
+            printf("Name");
+            gotoxy(54, 6);
+            printf("Amount");
+            gotoxy(72, 6);
+            printf("Date");
+            gotoxy(23, 7);
+            printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            gotoxy(23, 5);
+            printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            for (int i = 5; i <= 19; i++)
             {
-                gotoxy(60, i);
+                gotoxy(23, i);
                 printf(".");
             }
-            for (int i = 8; i <= 27; i++)
+            for (int i = 5; i <= 19; i++)
             {
-                gotoxy(88, i);
+                gotoxy(79, i);
                 printf(".");
             }
-            for (int i = 8; i <= 27; i++)
+            for (int i = 5; i <= 19; i++)
             {
-                gotoxy(116, i);
+                gotoxy(28, i);
                 printf(".");
             }
+            for (int i = 5; i <= 19; i++)
+            {
+                gotoxy(45, i);
+                printf(".");
+            }
+            for (int i = 5; i <= 19; i++)
+            {
+                gotoxy(66, i);
+                printf(".");
+            }
+            gotoxy(23, 19);
+            printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             int f = 1;
 
             for (int i = start; i < num; i++)
             {
 
-                gotoxy(53, f + 10);
+                gotoxy(25, f + 7);
                 printf("%d . ", f);
-                gotoxy(68, f + 10);
+                gotoxy(29, f + 7);
                 printf("%s", t_user[i].name);
-                gotoxy(98, f + 10);
+                gotoxy(47, f + 7);
                 printf("%c", t_user[i].sign);
-                gotoxy(99, f + 10);
+                gotoxy(48, f + 7);
                 printf("%d  ", t_user[i].amount);
-                gotoxy(119, f + 10);
+                gotoxy(68, f + 7);
                 printf("%s", t_user[i].date);
 
                 f++;
@@ -484,12 +447,13 @@ void remove_tran() // 1
         }
         // k=f+10;
     }
-
-    gotoxy(73, 7);
+    gotoxy(25, 2);
+    printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    gotoxy(28, 1);
 
     printf("Enter ther transaction number you want to remove : ");
 
-scanf("%d", &number); /// number declared globally
+    scanf("%d", &number); /// number declared globally
 
     id[id_pos].tran_num--;
 
@@ -500,11 +464,11 @@ scanf("%d", &number); /// number declared globally
 
     write_tran();
 
-    loading1(); // For loading animation.
+    loading(); // For loading animation.
 
-    gotoxy(99, 34);
+    gotoxy(40, 22);
     printf("Press any key to get back");
-    gotoxy(99, 35);
+    gotoxy(37, 23);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     getch();
     system("CLS");
@@ -515,7 +479,7 @@ scanf("%d", &number); /// number declared globally
 void show_tran() /// to print and show trasantions1
 {
 
-   read_tran();
+    read_tran();
 
     num = 0;
 
@@ -533,63 +497,59 @@ void show_tran() /// to print and show trasantions1
             // printf("done");
 
             int start = num - id[j].tran_num;
-            gotoxy(54, 9);
+            gotoxy(24, 3);
             printf("SI.");
-            gotoxy(70, 9);
-            printf("Name:-");
-            gotoxy(99, 9);
-            printf("Amount:-");
-            gotoxy(121, 9);
-            printf("Date:-");
-    gotoxy(50, 6);
-     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-       gotoxy(50, 8);
-     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-       gotoxy(50, 10);
-     printf("..................................................................................");
-     gotoxy(50, 27);
-
-    printf("..................................................................................");
-    for (int i = 6; i <= 27; i++)
-    {
-        gotoxy(50, i);
-        printf(".");
-    }
-    for (int i = 6; i <= 27; i++)
-    {
-        gotoxy(131, i);
-        printf(".");
-    }
-            for (int i = 8; i <= 27; i++)
+            gotoxy(35, 3);
+            printf("Name");
+            gotoxy(54, 3);
+            printf("Amount");
+            gotoxy(72, 3);
+            printf("Date");
+            gotoxy(23, 4);
+            printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            gotoxy(23, 2);
+            printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            for (int i = 2; i <= 15; i++)
             {
-                gotoxy(60, i);
+                gotoxy(23, i);
                 printf(".");
             }
-            for (int i = 8; i <= 27; i++)
+            for (int i = 2; i <= 15; i++)
             {
-                gotoxy(88, i);
+                gotoxy(79, i);
                 printf(".");
             }
-            for (int i = 8; i <= 27; i++)
+            for (int i = 2; i <= 15; i++)
             {
-                gotoxy(116, i);
+                gotoxy(28, i);
                 printf(".");
             }
-
+            for (int i = 2; i <= 15; i++)
+            {
+                gotoxy(45, i);
+                printf(".");
+            }
+            for (int i = 2; i <= 15; i++)
+            {
+                gotoxy(66, i);
+                printf(".");
+            }
+            gotoxy(23, 15);
+            printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             int f = 1;
 
             for (int i = start; i < num; i++)
             {
 
-                gotoxy(53, f + 10);
+                gotoxy(25, f + 4);
                 printf("%d ", f);
-                gotoxy(68, f + 10);
+                gotoxy(29, f + 4);
                 printf("%s", t_user[i].name);
-                gotoxy(98, f + 10);
+                gotoxy(47, f + 4);
                 printf("%c", t_user[i].sign);
-                gotoxy(99, f + 10);
+                gotoxy(48, f + 4);
                 printf("%d  ", t_user[i].amount);
-                gotoxy(119, f + 10);
+                gotoxy(68, f + 4);
                 printf("%s", t_user[i].date);
 
                 f++;
@@ -598,9 +558,10 @@ void show_tran() /// to print and show trasantions1
         }
     }
 
-    gotoxy(78,7 );
-    printf("Press any key to get back>>>>");
-
+    gotoxy(40, k);
+    printf("Press any key to get back");
+    gotoxy(37, k + 1);
+    printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     getch();
     system("CLS");
 
@@ -747,53 +708,35 @@ void note_page() /// note page
 
         system("cls");
 
-          gotoxy(50,9);
-    printf("*********************************************************************************");
-    gotoxy(50,10);
-    printf("                               My diary                                          ");
-    gotoxy(50, 28);
+        gotoxy(15, 3);
+        printf("::::::::::::::::::::::::::::::::::::::");
+        gotoxy(15, 22);
+        printf("::::::::::::::::::::::::::::::::::::::");
+        for (int i = 3; i <= 22; i++)
+        {
 
-    printf("*********************************************************************************");
-    for (int i = 9; i <= 28; i++)
-    {
-        gotoxy(50, i);
-        printf(".");
-    }
-    for (int i = 9; i <= 28; i++)
-    {
-        gotoxy(131, i);
-        printf(".");
-    }
-    gotoxy(50, 11);
+            gotoxy(15, i);
+            printf("..");
+        }
+        for (int i = 3; i <= 22; i++)
+        {
 
-    printf("**********************************************************************************");
-    gotoxy(50, 29);
-
-    printf("**********************************************************************************");
-    for (int i = 11; i <= 29; i++)
-    {
-        gotoxy(50, i);
-        printf(".");
-    }
-    for (int i = 11; i <= 29; i++)
-    {
-        gotoxy(131, i);
-        printf(".");
-    }
-
-        gotoxy(53, 14);
+            gotoxy(52, i);
+            printf("..");
+        }
+        gotoxy(18, 7);
         arrowHere(1, position);
         printf(" Show notes");
 
-        gotoxy(53, 16);
+        gotoxy(18, 9);
         arrowHere(2, position);
         printf(" Add note");
 
-        gotoxy(53, 18);
+        gotoxy(18, 11);
         arrowHere(3, position);
         printf(" Remove note");
 
-        gotoxy(53, 20);
+        gotoxy(18, 13);
         arrowHere(4, position);
         printf(" Back to Main menu.");
 
@@ -928,6 +871,8 @@ void remove_note() // 1
 
     gotoxy(10, s + 7);
     printf("Enter :");
+    // scanf("%d",&n);
+
     scanf("%d", &n);
     gotoxy(10, s + 8);
 
@@ -952,9 +897,6 @@ void remove_note() // 1
 
     note_page();
 }
-
-
-
 
 void read_data() // 1
 {
@@ -1013,71 +955,11 @@ void search_id() // 1
         }
     }
 }
-void EXIT()
+
+void main_page() /// account main page or landing page.
 {
-    int position = 1;
-    int keyPressed = 0;
 
-    while (keyPressed != 13)
-    {
-        system("cls");
-        gotoxy(50, 12);
-
-    printf("..................................................................................");
-    gotoxy(50, 27);
-
-    printf("..................................................................................");
-    for (int i = 12; i <= 27; i++)
-    {
-        gotoxy(50, i);
-        printf(".");
-    }
-    for (int i = 12; i <= 27; i++)
-    {
-        gotoxy(131, i);
-        printf(".");
-    }
-        gotoxy(70, 14);
-        printf("Do you want to exit?!");
-
-        gotoxy(75, 16);
-        arrowHere(1, position);
-        printf("YES.");
-
-        gotoxy(75, 18);
-        arrowHere(2, position);
-        printf("NO.");
-
-        keyPressed = getch();
-
-        if (keyPressed == 80 && position != 2)
-            position++;
-
-        else if (keyPressed == 72 && position != 1)
-            position--;
-
-        else
-            position = position;
-
-        /// Operations.
-        if (position == 1 && keyPressed == 13)
-        {
-            system("cls");
-            exitFlag = 1;
-            return; /// This will return to the main_page function.
-        }
-
-        else if (position == 2 && keyPressed == 13)
-        {
-            system("cls");
-            main_page();
-        }
-    }
-}
-
-void main_page() /// account main page or landing page.12
-{
-  read_tran();
+    read_tran();
 
     int position = 1;
     int keyPressed = 0;
@@ -1087,80 +969,76 @@ void main_page() /// account main page or landing page.12
         system("cls");
 
         /// from read_tran
-        gotoxy(50, 33);
+        gotoxy(15, 3);
         printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-        gotoxy(50, 10);
+        gotoxy(15, 22);
         printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-        for (int i =10; i <= 33; i++)
+        for (int i = 3; i <= 22; i++)
         {
 
-            gotoxy(50, i);
+            gotoxy(15, i);
             printf("..");
         }
-        for (int i = 10; i <= 33; i++)
+        for (int i = 3; i <= 22; i++)
         {
 
-            gotoxy(120, i);
+            gotoxy(85, i);
             printf("..");
         }
 
-        gotoxy(54, 12);
+        gotoxy(18, 5);
         printf("|| Balance : %d", balance); /// from read_tran
-        gotoxy(54, 13);
+        gotoxy(18, 6);
         printf("~~~~~~~~~~~~~~~~~");
-        gotoxy(53, 15);
+        gotoxy(18, 8);
         printf("-------------------------------");
-        gotoxy(53, 17);
+        gotoxy(18, 10);
         printf("-------------------------------");
-        gotoxy(53, 19);
+        gotoxy(18, 12);
         printf("-------------------------------");
-        gotoxy(53, 21);
+        gotoxy(18, 14);
         printf("-------------------------------");
-        gotoxy(53, 23);
+        gotoxy(18, 16);
         printf("-------------------------------");
-        gotoxy(53, 25);
+        gotoxy(18, 18);
         printf("-------------------------------");
-         gotoxy(53, 27);
-        printf("-------------------------------");
-        gotoxy(53, 29);
-        printf("-------------------------------");
-         gotoxy(53, 31);
+        gotoxy(18, 20);
         printf("-------------------------------");
         /// gotoxy(18,6);
         /// printf("WELCOME Ekhane naam ta show kora user er", )!!
 
-        gotoxy(53, 14);
+        gotoxy(18, 7);
         printf("What do you want do today!");
 
-        gotoxy(53, 16);
+        gotoxy(18, 9);
         arrowHere(1, position);
         printf("1. Add money");
 
-        gotoxy(53, 18);
+        gotoxy(18, 11);
         arrowHere(2, position);
         printf("2. Remove money");
 
-        gotoxy(53, 20);
+        gotoxy(18, 13);
         arrowHere(3, position);
         printf("3. View Transaction History");
 
-        gotoxy(53, 22);
+        gotoxy(18, 15);
         arrowHere(4, position);
         printf("4. Delete Transaction ");
 
-        gotoxy(53, 24);
+        gotoxy(18, 17);
         arrowHere(5, position);
         printf("5. My Diary ");
 
-        gotoxy(53, 26);
+        gotoxy(18, 19);
         arrowHere(6, position);
         printf("6. Switch account ");
 
-        gotoxy(53, 28);
+        gotoxy(18, 21);
         arrowHere(7, position);
         printf("7. Cradits ");
 
-        gotoxy(53, 30);
+        gotoxy(18, 19);
         arrowHere(8, position);
         printf("8. Exit ");
 
@@ -1235,61 +1113,119 @@ void main_page() /// account main page or landing page.12
                 return;
         }
     }
-
 }
 
+void EXIT()
+{
+    int position = 1;
+    int keyPressed = 0;
 
+    while (keyPressed != 13)
+    {
+        system("cls");
+        gotoxy(15, 3);
+        printf("::::::::::::::::::::::::::::::::::::::");
+        gotoxy(15, 22);
+        printf("::::::::::::::::::::::::::::::::::::::");
+        for (int i = 3; i <= 22; i++)
+        {
 
+            gotoxy(15, i);
+            printf("..");
+        }
+        for (int i = 3; i <= 22; i++)
+        {
 
-void login() /// login function//12
+            gotoxy(52, i);
+            printf("..");
+        }
+
+        gotoxy(25, 7);
+        printf("Do you want to exit?!");
+
+        gotoxy(25, 9);
+        arrowHere(1, position);
+        printf("YES.");
+
+        gotoxy(25, 11);
+        arrowHere(2, position);
+        printf("NO.");
+
+        keyPressed = getch();
+
+        if (keyPressed == 80 && position != 2)
+            position++;
+
+        else if (keyPressed == 72 && position != 1)
+            position--;
+
+        else
+            position = position;
+
+        /// Operations.
+        if (position == 1 && keyPressed == 13)
+        {
+            system("cls");
+            exitFlag = 1;
+            return; /// This will return to the main_page function.
+        }
+
+        else if (position == 2 && keyPressed == 13)
+        {
+            system("cls");
+            main_page();
+        }
+    }
+}
+
+void login() /// login function
 {
 
-      gotoxy(77, 7);
+    gotoxy(42, 1);
 
     printf("...............................");
-    gotoxy(77, 9);
+    gotoxy(42, 3);
 
     printf("..............................");
-    gotoxy(77, 8);
+    gotoxy(42, 2);
     printf(":");
-    gotoxy(77, 9);
+    gotoxy(42, 3);
     printf(":");
-    gotoxy(107, 8);
+    gotoxy(72, 2);
     printf(":");
-    gotoxy(107,9);
+    gotoxy(72, 3);
     printf(":");
-    gotoxy(50, 12);
+    gotoxy(17, 5);
 
     printf("..................................................................................");
-    gotoxy(50, 27);
+    gotoxy(17, 18);
 
     printf("..................................................................................");
-    for (int i = 12; i <= 27; i++)
+    for (int i = 5; i <= 18; i++)
     {
-        gotoxy(50, i);
+        gotoxy(17, i);
         printf(".");
     }
-    for (int i = 12; i <= 27; i++)
+    for (int i = 5; i <= 18; i++)
     {
-        gotoxy(131, i);
+        gotoxy(98, i);
         printf(".");
     }
-    gotoxy(84, 8);
+    gotoxy(48, 2);
     printf(" <<<<<LOGIN>>>>> ");
-    gotoxy(70, 13);
-    printf("**Please press ESC and then Enter to go back**");
+
     char login_user_name[30], login_password[30];
 
-    gotoxy(56, 15);
+    gotoxy(24, 7);
     printf("1.Enter user name : ");
     scanf("%s", &login_user_name);
-    gotoxy(56, 16);
+    gotoxy(24, 8);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~");
-    gotoxy(56, 17);
+    gotoxy(24, 9);
     printf("2.Enter password  : ");
     scanf("%s", &login_password);
 
-    gotoxy(56, 18);
+    gotoxy(24, 10);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~");
     read_data();
 
@@ -1314,10 +1250,10 @@ void login() /// login function//12
 
         loading(); // For loading animation.
 
-        gotoxy(99, 22);
+        gotoxy(53, 12);
         printf("**Succesful login**");
 
-        gotoxy(97, 23);
+        gotoxy(51, 14);
         printf("Press any key to continue");
 
         getch();
@@ -1332,12 +1268,12 @@ void login() /// login function//12
     else
     {
         loading(); // For loading animation.
-        gotoxy(94, 22);
+        gotoxy(45, 10);
         printf("**Incorrect user name or password**");
 
-        gotoxy(101, 23);
+        gotoxy(53, 11);
         printf("*please try again*");
-        gotoxy(97, 24);
+        gotoxy(50, 13);
         printf("Press any key to try again ");
 
         getch();
@@ -1348,9 +1284,8 @@ void login() /// login function//12
     getch();
 }
 
-void signup() /// sign up function//12
+void signup() /// sign up function
 {
-
 
     char first_name[20];
     char last_name[20];
@@ -1362,59 +1297,58 @@ void signup() /// sign up function//12
     read_data();
     read_tran();
     read_note();
-    gotoxy(77, 7);
-
+    gotoxy(42, 1);
     printf("...............................");
-    gotoxy(77, 9);
+    gotoxy(42, 3);
 
     printf("..............................");
-    gotoxy(77, 8);
+    gotoxy(42, 2);
     printf(":");
-    gotoxy(77, 9);
+    gotoxy(42, 3);
     printf(":");
-    gotoxy(107, 8);
+    gotoxy(72, 2);
     printf(":");
-    gotoxy(107,9);
+    gotoxy(72, 3);
     printf(":");
-    gotoxy(50, 12);
+    gotoxy(17, 5);
 
     printf("..................................................................................");
-    gotoxy(50, 28);
+    gotoxy(17, 18);
 
     printf("..................................................................................");
-    for (int i = 12; i <= 28; i++)
+    for (int i = 5; i <= 18; i++)
     {
-        gotoxy(50, i);
+        gotoxy(17, i);
         printf(".");
     }
-    for (int i = 12; i <= 28; i++)
+    for (int i = 5; i <= 18; i++)
     {
-        gotoxy(131, i);
+        gotoxy(98, i);
         printf(".");
     }
-    gotoxy(84,8);
+    gotoxy(48, 2);
 
     printf("<<<<<SIGN UP>>>>>");
-    gotoxy(56, 14);
+    gotoxy(19, 6);
     printf("1.Enter first name : ");
     scanf("%s", &user[id_num].first_name);
-    gotoxy(56, 15);
+    gotoxy(19, 7);
     printf("~~~~~~~~~~~~~~~~~~~~~~~");
 
-    gotoxy(56, 16);
+    gotoxy(19, 8);
     printf("2.Enter last name  : ");
     scanf("%s", &user[id_num].last_name);
-    gotoxy(56, 17);
+    gotoxy(19, 9);
     printf("~~~~~~~~~~~~~~~~~~~~~~~");
-    gotoxy(56, 18);
+    gotoxy(19, 10);
     printf("3.Enter user name  : ");
     scanf("%s", &user[id_num].user_name);
-    gotoxy(56, 19);
+    gotoxy(19, 11);
     printf("~~~~~~~~~~~~~~~~~~~~~~~");
-    gotoxy(56, 20);
+    gotoxy(19, 12);
     printf("4.Enter password   : ");
     scanf("%s", &user[id_num].password);
-    gotoxy(56, 21);
+    gotoxy(19, 13);
     printf("~~~~~~~~~~~~~~~~~~~~~~~");
     int i;
 
@@ -1425,32 +1359,31 @@ void signup() /// sign up function//12
         {
 
             system("CLS");
-             gotoxy(50, 12);
+            gotoxy(17, 4);
+            printf("..................................................................................");
+            gotoxy(17, 20);
 
-    printf("..................................................................................");
-    gotoxy(50, 28);
-
-    printf("..................................................................................");
-    for (int i = 12; i <= 28; i++)
-    {
-        gotoxy(50, i);
-        printf(".");
-    }
-    for (int i = 12; i <= 28; i++)
-    {
-        gotoxy(131, i);
-        printf(".");
-    }
-            gotoxy(84, 13);
+            printf("..................................................................................");
+            for (int i = 5; i <= 20; i++)
+            {
+                gotoxy(17, i);
+                printf(".");
+            }
+            for (int i = 5; i <= 20; i++)
+            {
+                gotoxy(98, i);
+                printf(".");
+            }
+            gotoxy(45, 6);
             printf("-----user name already taken-----");
-            gotoxy(82, 14);
+            gotoxy(43, 7);
             printf("***********************************");
-            gotoxy(90, 15);
+            gotoxy(52, 8);
             printf("Try another one >>>>");
-            gotoxy(60, 18);
+            gotoxy(20, 11);
             printf("--------------------");
 
-            gotoxy(60, 17);
+            gotoxy(20, 10);
             printf("3.Enter user name  : ");
             scanf("%s", &user[id_num].user_name);
             i = 0; /// to check if the new userID is taken
@@ -1470,13 +1403,13 @@ void signup() /// sign up function//12
 
     loading(); //For loading animation.
 
-    gotoxy(99, 22);
+    gotoxy(48, 14);
     printf("**sign up succesfull**");
 
-    gotoxy(62, 27);
+    gotoxy(35, 16);
     printf("Note : please login using your user name and password\n");
 
-    gotoxy(97, 23);
+    gotoxy(45, 18);
     printf("Press any key to continue!!");
     getch();
 
@@ -1485,7 +1418,7 @@ void signup() /// sign up function//12
     login();
 }
 
-void First_page()//12
+void First_page()
 {
     hidecursor();
     int position = 1;
@@ -1496,33 +1429,33 @@ void First_page()//12
 
         system("cls");
         hidecursor();
-        gotoxy(65, 11);
-        printf("......................................................");
+        gotoxy(33, 3);
+        printf(".......................................................");
 
-        gotoxy(65, 13);
-        printf("......................................................");
-        gotoxy(65, 26);
-        printf("......................................................");
-        for (int i = 11; i <27; i++)
+        gotoxy(33, 5);
+        printf(".......................................................");
+        gotoxy(33, 14);
+        printf(".......................................................");
+        for (int i = 4; i < 15; i++)
         {
-            gotoxy(65, i);
-            printf(".");
+            gotoxy(33, i);
+            printf(":");
         }
-        for (int i = 11; i < 27; i++)
+        for (int i = 4; i < 15; i++)
         {
-            gotoxy(118, i);
-            printf(".");
+            gotoxy(87, i);
+            printf(":");
         }
 
-        gotoxy(84, 12);
+        gotoxy(50, 4);
         printf("Welcome to HALKHATA");
-        gotoxy(72, 16);
+        gotoxy(35, 8);
         arrowHere(1, position);
         printf("Login\n");
-        gotoxy(72, 18);
+        gotoxy(35, 10);
         arrowHere(2, position);
         printf("Sign up\n\n");
-        gotoxy(72, 16);
+        gotoxy(50, 15);
 
         keyPressed = getch();
 
