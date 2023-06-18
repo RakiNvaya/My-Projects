@@ -268,8 +268,8 @@ void add_money() // 12
     printf("...............................");
     gotoxy(85, 8);
     printf("-----Add money------");
-     gotoxy(72, 11);
-    printf("**Please press ESC and then Enter to go back**");
+   //  gotoxy(72, 11);
+   // printf("**Please press ESC and then Enter to go back**");
     gotoxy(54, 13);
     printf("Enter name : ");
     scanf("%s", &t_user[id_point].name);
@@ -345,8 +345,8 @@ void remove_money() // 12
 
     gotoxy(85, 8);
     printf("-----Remove money------");
-    gotoxy(72, 11);
-    printf("**Please press ESC and then Enter to go back**");
+ //   gotoxy(72, 11);
+ //   printf("**Please press ESC and then Enter to go back**");
     gotoxy(54,13);
     printf("Enter name : ");
     scanf("%s", &t_user[id_point].name);
@@ -696,26 +696,26 @@ void show_note()
             int s = 1; /// for serial
             gotoxy(17, 5);
 
-            printf("..................................................................................");
+            printf("*****************************************************************************************************************");
             gotoxy(17, 7);
 
-            printf("..................................................................................");
-            gotoxy(17, 18);
+            printf("*****************************************************************************************************************");
+            gotoxy(17, 30);
 
-            printf("..................................................................................");
-            for (int i = 5; i <= 18; i++)
+            printf("*****************************************************************************************************************");
+            for (int i = 5; i <= 30; i++)
             {
-                gotoxy(17, i);
+                gotoxy(16, i);
                 printf(".");
             }
-            for (int i = 5; i <= 18; i++)
+            for (int i = 5; i <= 30; i++)
             {
-                gotoxy(98, i);
+                gotoxy(130, i);
                 printf(".");
             }
             gotoxy(54, 6);
 
-            printf("|| My notes ||");
+          printf("|| My notes ||");
 
             for (int j = start; j < num; j++)
             {
@@ -841,30 +841,33 @@ void note_page() /// note page
 void add_notes() // 1
 {
     read_note();
-    gotoxy(17, 5);
+    gotoxy(50, 7);
 
     printf("..................................................................................");
-    gotoxy(17, 7);
 
-    printf("..................................................................................");
-    gotoxy(17, 18);
+    gotoxy(85, 8);
+    printf("|| Add notes ||");
 
+    gotoxy(50, 27);
     printf("..................................................................................");
-    for (int i = 5; i <= 18; i++)
+
+    gotoxy(50, 9);
+    printf("..................................................................................");
+    for (int i = 7; i <= 27; i++)
     {
-        gotoxy(17, i);
+        gotoxy(50, i);
         printf(".");
     }
-    for (int i = 5; i <= 18; i++)
+    for (int i = 7; i <= 27; i++)
     {
-        gotoxy(98, i);
+        gotoxy(131, i);
         printf(".");
     }
 
-    gotoxy(50, 6);
+    gotoxy(54, 12);
     printf("|| start from below || ");
 
-    gotoxy(22, 8);
+    gotoxy(54, 14);
     printf("=>");
 
     scanf(" %[^\n]", my_note[n_last]); /// n last from read note
@@ -878,10 +881,10 @@ void add_notes() // 1
 
     loading(); // For loading animation.
 
-    gotoxy(45, 13);
+    gotoxy(95, 22);
     printf(">> Note added successfully <<");
 
-    gotoxy(45, 16);
+    gotoxy(95, 24);
     printf("=>Press any key to get back<=");
 
     getch();
@@ -1278,8 +1281,8 @@ void login() /// login function//12
     }
     gotoxy(84, 8);
     printf(" <<<<<LOGIN>>>>> ");
-    gotoxy(70, 13);
-    printf("**Please press ESC and then Enter to go back**");
+   // gotoxy(70, 13);
+   // printf("**Please press ESC and then Enter to go back**");
     char login_user_name[30], login_password[30];
 
     gotoxy(56, 15);
