@@ -691,7 +691,7 @@ void show_note()
             n_last = num;
             n_pos = i;
             start = num - note_user[i].num_note;
-            //  printf("%d",note_user[i].num_note);
+            
 
             int s = 1; /// for serial
             gotoxy(17, 5);
