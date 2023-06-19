@@ -1380,6 +1380,7 @@ void login() /// login function//12
 void signup() /// sign up function//12
 {
 
+char ch[] = "BACK";
 
     char first_name[20];
     char last_name[20];
@@ -1424,27 +1425,35 @@ void signup() /// sign up function//12
     gotoxy(84,8);
 
     printf("<<<<<SIGN UP>>>>>");
-    gotoxy(56, 14);
-    printf("1.Enter first name : ");
-    scanf("%s", &user[id_num].first_name);
-    gotoxy(56, 15);
-    printf("~~~~~~~~~~~~~~~~~~~~~~~");
+
+     gotoxy(75,14);
+    printf("**Type and enter 'BACK' to get back**");
 
     gotoxy(56, 16);
+    printf("1.Enter first name : ");
+    scanf("%s", &user[id_num].first_name);
+
+    if(strcmp(user[id_num].first_name,ch)==0)
+        First_page();
+
+    gotoxy(56, 17);
+    printf("~~~~~~~~~~~~~~~~~~~~");
+
+    gotoxy(56, 18);
     printf("2.Enter last name  : ");
     scanf("%s", &user[id_num].last_name);
-    gotoxy(56, 17);
-    printf("~~~~~~~~~~~~~~~~~~~~~~~");
-    gotoxy(56, 18);
+    gotoxy(56, 19);
+    printf("~~~~~~~~~~~~~~~~~~~~");
+    gotoxy(56, 20);
     printf("3.Enter user name  : ");
     scanf("%s", &user[id_num].user_name);
-    gotoxy(56, 19);
-    printf("~~~~~~~~~~~~~~~~~~~~~~~");
-    gotoxy(56, 20);
+    gotoxy(56, 21);
+    printf("~~~~~~~~~~~~~~~~~~~~");
+    gotoxy(56, 22);
     printf("4.Enter password   : ");
     scanf("%s", &user[id_num].password);
-    gotoxy(56, 21);
-    printf("~~~~~~~~~~~~~~~~~~~~~~~");
+    gotoxy(56, 23);
+    printf("~~~~~~~~~~~~~~~~~~~~");
     int i;
 
     for (i = 0; i < id_num; i++) /// to check if the userID is taken
