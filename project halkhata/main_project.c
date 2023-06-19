@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
@@ -282,10 +281,12 @@ void add_money() // 12
     printf("Enter amount : ");
     scanf("%d", &t_user[id_point].amount);
 
-    if(t_user[id_point].amount > 50001)
+    if(t_user[id_point].amount > 100000)
         {
         gotoxy(97,24);
         printf("**Maximum limit exceeded**");
+        gotoxy(97,25);
+        printf("[ Max Limit One Lac ]");
 
         getch();
         system("CLS");
@@ -757,13 +758,13 @@ void show_note()
 
 void note_page() /// note page
 {
+    hidecursor();
     int position = 1;
     int keyPressed = 0;
 
     while (keyPressed != 13)
         {
 
-        system("cls");
 
         gotoxy(50,9);
         printf("*********************************************************************************");
@@ -1099,13 +1100,13 @@ void EXIT()
 void main_page() /// account main page or landing page.12
 {
     read_tran();
-
+	hidecursor();
     int position = 1;
     int keyPressed = 0;
 
     while (keyPressed != 13)
         {
-        system("cls");
+
 
         /// from read_tran
         gotoxy(50, 33);
@@ -1535,7 +1536,7 @@ void First_page()//12
     while (keyPressed != 13)
         {
 
-        system("cls");
+
         hidecursor();
         gotoxy(65, 11);
         printf("......................................................");
@@ -1683,9 +1684,9 @@ void aboutUs()
 
     //Ifty info
     gotoxy(101,15);
-    printf("Iftekhar Hasan");
+    printf("Mohammad Iftikar Hasan");
     gotoxy(101, 16);
-    printf("ID: C231084");
+    printf("ID: C231083");
     gotoxy(101, 17);
     printf("Dept. of CSE");
     gotoxy(101,18);
@@ -1694,6 +1695,8 @@ void aboutUs()
     gotoxy(55, 22);
     printf(">>>Press any key to go back<<<");
     getch();
+
+    system("cls");
 
     main_page();
 }
