@@ -82,10 +82,18 @@ private:
         string name, author, publisher;
         Book *next; // Next field for adding new books.
     };
+    struct Admin
+     {
+        string first_name,last_name,user_name,password;
+       // int Record_count; /// number of book saved
+
+        Admin *next;
+    };
 
 public:
     Book *head = NULL;    // Head pointer of the Book list.
-    void load_records();  // For storing the records inside the Linked List.
+    Admin *start = NULL; /// head pointer of the admin list
+    void Read_recods();  // For storing the records inside the Linked List.
     void write_records(); // For writing the records inside the File.
     void first_page();
     void signup();
@@ -100,10 +108,68 @@ public:
     void sort(); // Selection sort.
     void ShowAll();
     void AboutUs();
+    void Admin_record_read();
+    void Admin_record_write();
 };
 
+void library :: Admin_record_read()
+{
+    ifstream in("Admin.txt");
+
+    in >> Admin_count;
+
+    Admin *str = start;
+
+    if(Admin_count == 0)
+    {
+        cout<<" No Admin found \n  ";
+        _getch();
+        return ;
+    }
+
+    else
+    {
+
+        for(int i = 0;i<Admin_count;i++)
+        {
+            in >> str->first_name;
+            in >> str->last_name;
+            in >> str->user_name;
+            in >> str->password;
+
+            str = str->next;
+        }
+
+        str->next = NULL;
+    }
+
+    in.close();
+}
+
+void library :: Admin_record_write()
+{
+    ofstream out("Admin.txt");
+
+    out<<Admin_count;
+
+    Admin *str = start; /// original starting node of the admin list
+
+    while(str != NULL)
+    {
+
+        cout<<str->first_name<<endl;
+        cout<<str->last_name<<endl;
+        cout<<str->user_name<<endl;;
+        cout<<str->password<<endl;
+
+        str = str->next;
+    }
+
+    out.close();
+
+}
 /// Read Data Function:
-void library::load_records()
+void library::Read_recods()
 {
     ifstream in("Book List.txt");
 
@@ -303,7 +369,7 @@ void library::EXIT()
 /// Insert Function:
 void library ::insert()
 {
-    load_records(); // Reading data.
+    Read_recods(); // Reading data.
 
     system("cls");
     showTitle("Insert Record.");
@@ -397,7 +463,7 @@ int keyPressed = 0;
         {
             system("cls");
             hideCursor();
-            signup(); /// kaj baki ase
+            signup(); 
         }
         else if (position == 1 && keyPressed == 0)
         {
@@ -413,6 +479,31 @@ int keyPressed = 0;
 
 void library::login()  /// login function
 {
+    string name,pass;
+
+    cout<<" LOGIN \n";
+    cout<<"Enter user name :";
+    cin >> name;
+    cout<<"Enter Passeord : ";
+    cin >> pass;
+
+    Admin_record_read();
+
+    Admin *str = start; /// starting point of admin list
+
+    while(str != NULL)
+    {
+
+        if(str->user_name == name && str->password == pass)
+        {
+            cout<<"Login Successfull \n";
+            first_page();
+            _getch();
+            str = NULL;
+        }
+    }
+
+    cout<<"Login Failed \n";
 
 
 
@@ -420,29 +511,44 @@ void library::login()  /// login function
 
 void library :: signup() /// signup function
 {
-    load_records();
+    //Read_recods();
 
-    string first_name;
-    string last_name;
-    string user_name;
-    string password;
+    Admin *newnode = new Admin;
 
     gotoxy(50,8);
     cout<<"First Name : ";
-    getline(cin,first_name);
+    getline(cin,newnode->first_name);
     cout<<"Last Name : ";
-    getline(cin ,last_name);
+    getline(cin ,newnode->last_name);
     cout<<"User Name : ";
-    getline(cin,user_name);
+    getline(cin,newnode->user_name);
     cout<<"Password : ";
-    getline(cin ,password);
+    getline(cin ,newnode->password);
+
+    Admin *str = start;
+
+    while(start != NULL)
+        str = str->next;
+
+    str = str->next;
+
+    str = newnode;
+
+    str->next = NULL;
+
+    Admin_count++;
+
+
+    login();
+     _getch();
+
 
 
 }
 /// Show ALL Funtion:
 void library::ShowAll()
 {
-    load_records(); // Reading data.
+    Read_recods(); // Reading data.
     sort();         // Sorting all data.
 
     system("cls");
@@ -491,7 +597,7 @@ void library::ShowAll()
 /// Search Function:
 void library::search()
 {
-    load_records(); // Reading data.
+    Read_recods(); // Reading data.
     sort();         // Sorting all data.
 
     system("cls");
@@ -609,7 +715,7 @@ void library::Ask_before_operation(string s)
 }
 void library::update()
 {
-    load_records(); // Reading data.
+    Read_recods(); // Reading data.
     sort();         // Sorting all data.
 
     system("cls");
@@ -720,7 +826,7 @@ void library::update()
 /// Delete Function:
 void library::Delete()
 {
-    load_records(); // Reading data.
+    Read_recods(); // Reading data.
     sort();         // Sorting all data.
 
     system("cls");
@@ -987,8 +1093,8 @@ int main()
 {
     hideCursor();
     library obj1;
-    obj1.load_records(); // Reading all existing data from file.
-   obj1.menu();
-   // obj1.first_page();
+    obj1.Read_recods(); // Reading all existing data from file.
+   //obj1.menu();
+    obj1.first_page();
     return 0;
 }
