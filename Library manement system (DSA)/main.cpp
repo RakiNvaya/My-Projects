@@ -413,7 +413,7 @@ int keyPressed = 0;
 
 void library::login()  /// login function
 {
-    
+
 
 
 }
@@ -421,18 +421,18 @@ void library::login()  /// login function
 void library :: signup() /// signup function
 {
     load_records();
-    
+
     string first_name;
     string last_name;
     string user_name;
     string password;
-    
+
     gotoxy(50,8);
     cout<<"First Name : ";
     getline(cin,first_name);
     cout<<"Last Name : ";
-    getline(cin <last_name);
-    cout<<"User Name : ":
+    getline(cin ,last_name);
+    cout<<"User Name : ";
     getline(cin,user_name);
     cout<<"Password : ";
     getline(cin ,password);
