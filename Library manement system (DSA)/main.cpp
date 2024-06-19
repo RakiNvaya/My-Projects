@@ -116,6 +116,8 @@ void library ::Admin_record_read()
 
     in >> Admin_count;
 
+    in.ignore();
+
     Admin *str = new Admin;
 
     for (int i = 1; i <= Admin_count; i++)
@@ -149,7 +151,7 @@ void library ::Admin_record_write()
     if (!out)
         cout << "error\n";
 
-    out << Admin_count;
+    out << Admin_count << endl;
 
     Admin *str = start; /// original starting node of the admin list
 
@@ -481,14 +483,16 @@ void library ::first_page() /// sing up and login
 void library::login() /// login function
 {
     string name, pass;
-     gotoxy(50,10);
+    gotoxy(50, 10);
     cout << " LOGIN \n";
-    gotoxy(50,12);
+    gotoxy(50, 12);
     cout << "Enter user name :";
     cin >> name;
-    gotoxy(50,14);
-    cout << "Enter Passeord : ";
+    gotoxy(50, 14);
+    cout << "Enter Password : ";
     cin >> pass;
+
+    cin.ignore();
 
     Admin_record_read();
 
@@ -500,17 +504,18 @@ void library::login() /// login function
     {
         if (str->user_name == name && str->password == pass)
         {
-            gotoxy(50,16);
+            gotoxy(50, 16);
             cout << "Login Successfull \n";
             //  system("cls");
+            i = Admin_count + 1;
             _getch();
             menu();
-            i = Admin_count + 1;
         }
 
+        str = str->next;
         i++;
     }
-    gotoxy(50,16);
+    gotoxy(50, 16);
     cout << "Login Failed \n";
     _getch();
 
@@ -520,8 +525,6 @@ void library::login() /// login function
 void library ::signup() /// signup function
 {
     Admin_record_read();
-    // Admin_count--;
-    // Admin_record_write();
 
     Admin *newnode = new Admin;
     gotoxy(50, 6);
@@ -546,20 +549,11 @@ void library ::signup() /// signup function
     while (str->next != NULL)
         str = str->next;
 
-        if(Admin_count == 0)
-          {
-                str = newnode;
-            str->next = NULL;
-          }
-        else
-      {
-
-            str->next = newnode;
+    str->next = newnode;
 
     str = str->next;
 
     str->next = NULL;
-      }
 
     Admin_count++;
 
