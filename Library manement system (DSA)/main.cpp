@@ -9,8 +9,6 @@ using namespace std;
 #define ll long long int
 #define vi vector<int>
 
-
-
 int exitFlag = 0;     /// This flag is used for exiting the application.
 int Record_count = 0; /// This count of how many records are in the Files.
 int Admin_count = 0;  /// This is the count of how many admins can access the library records.(Informations are stored in the )
@@ -83,17 +81,17 @@ private:
         Book *next; // Next field for adding new books.
     };
     struct Admin
-     {
-        string first_name,last_name,user_name,password;
-       // int Record_count; /// number of book saved
+    {
+        string first_name, last_name, user_name, password;
+        // int Record_count; /// number of book saved
 
         Admin *next;
     };
 
 public:
     Book *head = NULL;    // Head pointer of the Book list.
-    Admin *start = NULL; /// head pointer of the admin list
-    void Read_recods();  // For storing the records inside the Linked List.
+    Admin *start = NULL;  /// head pointer of the admin list
+    void Read_recods();   // For storing the records inside the Linked List.
     void write_records(); // For writing the records inside the File.
     void first_page();
     void signup();
@@ -112,61 +110,61 @@ public:
     void Admin_record_write();
 };
 
-void library :: Admin_record_read()
+void library ::Admin_record_read()
 {
     ifstream in("Admin.txt");
 
     in >> Admin_count;
 
-    Admin *str = start;
+    Admin *str = new Admin;
 
-    if(Admin_count == 0)
+    for (int i = 1; i <= Admin_count; i++)
     {
-        cout<<" No Admin found \n  ";
-        _getch();
-        return ;
-    }
+        getline(in, str->first_name);
+        getline(in, str->last_name);
+        getline(in, str->user_name);
+        getline(in, str->password);
 
-    else
-    {
+        if (start == NULL)
+            start = str;
 
-        for(int i = 0;i<Admin_count;i++)
         {
-            in >> str->first_name;
-            in >> str->last_name;
-            in >> str->user_name;
-            in >> str->password;
 
-            str = str->next;
+            str->next = new Admin;
+
+            if (i == Admin_count)
+                str->next = NULL;
+            else
+                str = str->next;
         }
-
-        str->next = NULL;
     }
 
     in.close();
 }
 
-void library :: Admin_record_write()
+void library ::Admin_record_write()
 {
     ofstream out("Admin.txt");
 
-    out<<Admin_count;
+    if (!out)
+        cout << "error\n";
+
+    out << Admin_count;
 
     Admin *str = start; /// original starting node of the admin list
 
-    while(str != NULL)
+    while (str != NULL)
     {
 
-        cout<<str->first_name<<endl;
-        cout<<str->last_name<<endl;
-        cout<<str->user_name<<endl;;
-        cout<<str->password<<endl;
+        out << str->first_name << endl;
+        out << str->last_name << endl;
+        out << str->user_name << endl;
+        out << str->password << endl;
 
         str = str->next;
     }
 
     out.close();
-
 }
 /// Read Data Function:
 void library::Read_recods()
@@ -425,27 +423,26 @@ void library ::insert()
     _getch();
 }
 
-void library :: first_page() ///singup and login
+void library ::first_page() /// sing up and login
 {
 
- system("cls");
-hideCursor();
+    system("cls");
+    hideCursor();
 
-int position = 1;
-int keyPressed = 0;
+    int position = 1;
+    int keyPressed = 0;
 
-      while(keyPressed != 13)
-      {
+    while (keyPressed != 13)
+    {
 
-
-      gotoxy(84, 12);
-        cout<<"Library Management System \n " ;
+        gotoxy(84, 12);
+        cout << "Library Management System \n ";
         gotoxy(72, 16);
         arrowHere(1, position);
-        cout<<"Login \n";
+        cout << "Login \n";
         gotoxy(72, 18);
         arrowHere(2, position);
-        cout<<"Sign Up \n";
+        cout << "Sign Up \n";
         gotoxy(72, 16);
 
         keyPressed = getch();
@@ -455,101 +452,129 @@ int keyPressed = 0;
 
         else if (keyPressed == 72 && position != 1)
             position--;
+        else if (keyPressed == 80 && position == 2)
+            position = 1;
+        else if (keyPressed == 72 && position == 1)
+            position = 2;
 
         else
             position = position;
 
-        if (position == 2 && keyPressed == 1)
+        if (position == 2 && keyPressed == 13)
         {
             system("cls");
             hideCursor();
-            signup(); 
+            signup();
         }
-        else if (position == 1 && keyPressed == 0)
+        else if (position == 1 && keyPressed == 13)
         {
             system("cls");
             hideCursor();
             login();
 
-            if (exitFlag == 1)
-                return; /// This will return to the main function.
+            //   if (exitFlag == 1)
+            // return; /// This will return to the main function.
         }
     }
 }
 
-void library::login()  /// login function
+void library::login() /// login function
 {
-    string name,pass;
-
-    cout<<" LOGIN \n";
-    cout<<"Enter user name :";
+    string name, pass;
+     gotoxy(50,10);
+    cout << " LOGIN \n";
+    gotoxy(50,12);
+    cout << "Enter user name :";
     cin >> name;
-    cout<<"Enter Passeord : ";
+    gotoxy(50,14);
+    cout << "Enter Passeord : ";
     cin >> pass;
 
     Admin_record_read();
 
     Admin *str = start; /// starting point of admin list
 
-    while(str != NULL)
+    int i = 0;
+
+    while (str->next != NULL)
     {
-
-        if(str->user_name == name && str->password == pass)
+        if (str->user_name == name && str->password == pass)
         {
-            cout<<"Login Successfull \n";
-            first_page();
+            gotoxy(50,16);
+            cout << "Login Successfull \n";
+            //  system("cls");
             _getch();
-            str = NULL;
+            menu();
+            i = Admin_count + 1;
         }
+
+        i++;
     }
+    gotoxy(50,16);
+    cout << "Login Failed \n";
+    _getch();
 
-    cout<<"Login Failed \n";
-
-
-
+    first_page();
 }
 
-void library :: signup() /// signup function
+void library ::signup() /// signup function
 {
-    //Read_recods();
+    Admin_record_read();
+    // Admin_count--;
+    // Admin_record_write();
 
     Admin *newnode = new Admin;
+    gotoxy(50, 6);
 
-    gotoxy(50,8);
-    cout<<"First Name : ";
-    getline(cin,newnode->first_name);
-    cout<<"Last Name : ";
-    getline(cin ,newnode->last_name);
-    cout<<"User Name : ";
-    getline(cin,newnode->user_name);
-    cout<<"Password : ";
-    getline(cin ,newnode->password);
+    cout << "sign up \n ";
+
+    gotoxy(50, 8);
+    cout << "First Name : ";
+    getline(cin, newnode->first_name);
+    gotoxy(50, 9);
+    cout << "Last Name : ";
+    getline(cin, newnode->last_name);
+    gotoxy(50, 10);
+    cout << "User Name : ";
+    getline(cin, newnode->user_name);
+    gotoxy(50, 11);
+    cout << "Password : ";
+    getline(cin, newnode->password);
 
     Admin *str = start;
 
-    while(start != NULL)
+    while (str->next != NULL)
         str = str->next;
+
+        if(Admin_count == 0)
+          {
+                str = newnode;
+            str->next = NULL;
+          }
+        else
+      {
+
+            str->next = newnode;
 
     str = str->next;
 
-    str = newnode;
-
     str->next = NULL;
+      }
 
     Admin_count++;
 
+    Admin_record_write();
+
+    _getch();
+    system("CLS");
 
     login();
-     _getch();
-
-
-
 }
 /// Show ALL Funtion:
 void library::ShowAll()
 {
     Read_recods(); // Reading data.
-    sort();         // Sorting all data.
+    sort();        // Sorting all data.
 
     system("cls");
     showTitle("List Of All Books");
@@ -563,30 +588,26 @@ void library::ShowAll()
         return;
     }
 
-    gotoxy(50,8);
-     cout << "Book ID ";
-      gotoxy(65,8);
-      cout << "Name " ;
-       gotoxy(80,8);
-       cout << "Author Name ";
-        gotoxy(100,8);
-       cout << "Publisher Name " ;
-
-
-
-
+    gotoxy(50, 8);
+    cout << "Book ID ";
+    gotoxy(65, 8);
+    cout << "Name ";
+    gotoxy(80, 8);
+    cout << "Author Name ";
+    gotoxy(100, 8);
+    cout << "Publisher Name ";
 
     int y = 10; // Y coordinate.
     while (ptr != NULL)
     {
         gotoxy(52, y);
         cout << ptr->id;
-        gotoxy(67, y );
+        gotoxy(67, y);
         cout << ptr->name;
-        gotoxy(82, y );
+        gotoxy(82, y);
         cout << ptr->author;
-        gotoxy(102, y );
-        cout <<  ptr->publisher;
+        gotoxy(102, y);
+        cout << ptr->publisher;
         y += 5;
         ptr = ptr->next;
     }
@@ -598,7 +619,7 @@ void library::ShowAll()
 void library::search()
 {
     Read_recods(); // Reading data.
-    sort();         // Sorting all data.
+    sort();        // Sorting all data.
 
     system("cls");
     showTitle("Search Record");
@@ -716,7 +737,7 @@ void library::Ask_before_operation(string s)
 void library::update()
 {
     Read_recods(); // Reading data.
-    sort();         // Sorting all data.
+    sort();        // Sorting all data.
 
     system("cls");
     showTitle("Update Record");
@@ -827,7 +848,7 @@ void library::update()
 void library::Delete()
 {
     Read_recods(); // Reading data.
-    sort();         // Sorting all data.
+    sort();        // Sorting all data.
 
     system("cls");
     showTitle("Delete Record");
@@ -1094,7 +1115,7 @@ int main()
     hideCursor();
     library obj1;
     obj1.Read_recods(); // Reading all existing data from file.
-   //obj1.menu();
+                        // obj1.menu();
     obj1.first_page();
     return 0;
 }
