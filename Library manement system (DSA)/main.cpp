@@ -132,12 +132,15 @@ void library ::Admin_record_read()
 
         {
 
-            str->next = new Admin;
+
 
             if (i == Admin_count)
                 str->next = NULL;
             else
+            {
+                str->next = new Admin;
                 str = str->next;
+            }
         }
     }
 
@@ -500,7 +503,7 @@ void library::login() /// login function
 
     int i = 0;
 
-    while (str->next != NULL)
+    while (str != NULL)
     {
         if (str->user_name == name && str->password == pass)
         {
@@ -558,6 +561,9 @@ void library ::signup() /// signup function
     Admin_count++;
 
     Admin_record_write();
+
+
+    cout << "sign up successfull \n";
 
     _getch();
     system("CLS");
