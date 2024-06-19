@@ -555,7 +555,10 @@ void library ::signup() /// signup function
 
     if(Admin_count == 0)
     {
-        Admin *str = newnode;
+        start = newnode;
+        start->next = NULL;
+        Admin *str = start;
+     //   str->next = NULL;
     }
     else
 
