@@ -116,6 +116,12 @@ void library ::Admin_record_read()
 
     in >> Admin_count;
 
+     if (Admin_count == 0)
+        {
+            in.close();
+            return ;
+        }
+
     in.ignore();
 
     Admin *str = new Admin;
@@ -547,7 +553,14 @@ void library ::signup() /// signup function
     cout << "Password : ";
     getline(cin, newnode->password);
 
-    Admin *str = start;
+    if(Admin_count == 0)
+    {
+        Admin *str = newnode;
+    }
+    else
+
+    {
+        Admin *str = start;
 
     while (str->next != NULL)
         str = str->next;
@@ -557,6 +570,7 @@ void library ::signup() /// signup function
     str = str->next;
 
     str->next = NULL;
+    }
 
     Admin_count++;
 
