@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Air Ticket Reservation System</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        main {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-top: 0;
+            font-weight: normal;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .signup-link {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #007bff;
+            color: #ffffff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Air Ticket Reservation System</h1>
+    </header>
+
+    <main>
+        <h1>Login</h1>
+        <form id="loginForm" autocomplete="off">
+            <label for="loginUsername">Username:</label>
+            <input type="text" id="loginUsername" name="username" required>
+
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <div id="notification" style="display:none;">Success</div>
+        <div class="signup-link">
+            Don't have an account? <a href="signup.html">Sign Up</a>
+        </div>
+    </main>
+
+    <footer>
+      
+    </footer>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const storedUser = JSON.parse(localStorage.getItem(username));
+
+            if (storedUser && storedUser.password === password) {
+                showNotification('Login successful');
+                setTimeout(() => {
+                    window.location.href = 'homepage.html'; // Redirect to homepage after successful login
+                }, 1000);
+            } else {
+                showNotification('Invalid username or password');
+            }
+        });
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.innerText = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
