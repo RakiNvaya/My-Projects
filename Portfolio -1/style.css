@@ -1,0 +1,145 @@
+body {
+    background-color: aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+
+}
+
+nav {
+
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 50px;
+
+}
+
+.left {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+nav .right a {
+    margin: 10px 10px;
+
+    color: white;
+    background-color: black;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+
+
+.section_1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+    margin: 50px 0;
+    align-items: center;
+    gap: 50px;
+}
+
+.section_1 .text .links {
+    margin: 10px 0;
+
+}
+
+.section_1 .text .links a {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid black;
+    margin: 0 5px;
+    border-radius: 10px;
+    transition: .1s;
+
+}
+
+.section_1 .text .links a :hover {
+    color: turquoise;
+    border: 2px turquoise;
+}
+
+
+.section_1 .text {
+    font-size: 60 px;
+    flex: 50;
+}
+
+.section_1 .pic img {
+    height: 300px;
+    width: 300px;
+    border-radius: 100px;
+    flex: 2;
+
+}
+
+.skills_section {
+    padding: 0% 50px;
+    margin: 20px;
+}
+
+.skills_section h2 {
+    text-align: center;
+}
+
+.skills_section  .cells {
+    display: flex;
+    
+}
+
+
+.skills_section .cells img
+{
+    padding : 20px 0px;
+    margin: 10px 10px;
+    border : 2 px solid;
+    height: 100px;
+    width: 100px; 
+}
+
+.skills_section .cells span{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 40;
+}
+
+.project_section h2{
+    text-align: center;
+   
+}
+
+.project_section .p
+{
+    display: flex;
+   
+}
+
+.project_section .p img
+{
+    padding :  0 50px;
+    margin : 10px 30px;
+    
+   
+    height: 150px;
+}
+
+.project_section .p h3
+{
+    text-align: center;
+}
+
+.project_section .p  :hover
+{
+    color: turquoise;
+}
+
+
+
